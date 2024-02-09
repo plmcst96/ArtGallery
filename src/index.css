@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Manrope:wght@400;500;700&display=swap");
+
+body {
+  background-color: #04060a;
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
+}
+
+#root {
+  font-family: "Inter", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}
+
+.h1 {
+  font-size: 1.5em;
+}
+
+.menu li {
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 1em;
+}
+
+.menu li:hover {
+  color: #e71b82;
+}
+
+.carus {
+  height: 700px;
+}
+
+.testo {
+  margin-top: 7em;
+
+  font-family: "Manrope", sans-serif;
+}
+
+.bottone:hover {
+  background-color: #e71b82;
+  border: none;
+}
+
+.log .bottone:hover {
+  background-color: #e71b82;
+  border: none;
+  color: white;
+}

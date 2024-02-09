@@ -22,6 +22,11 @@ body {
   font-size: 1.5em;
 }
 
+h2 {
+  font-family: "Manrope", sans-serif;
+  font-size: 1.3em;
+}
+
 .menu li {
   font-family: "Manrope", sans-serif;
   font-weight: 500;

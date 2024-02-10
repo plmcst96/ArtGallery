@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import frida from "../assets/frida2.png"
+
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
 import { getAlArtist } from "../redux/actions/artist"
@@ -16,39 +16,46 @@ const ArtistHome = () => {
 
   return (
     <div className="grid grid-cos-1">
-      <h2 className="text-white ml-20" style={{ marginTop: "6em" }}>
+      <h2 className="text-white ml-20" style={{ marginTop: "4em" }}>
         ARTIST__
       </h2>
       <div
-        className="grid grid-cols-5 gap-x-8 gap-y-6 m-8 artist"
+        className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-x-4 gap-y-6 m-8 artist"
         style={{ marginTop: "3em" }}
       >
-        {artistData.map((artist) => (
-          <div className="flex flex-col items-center" key={artist.uuid}>
-            <Link to="/artist/detail">
-              <button
-                style={{ border: "3px solid white" }}
-                className="rounded-full"
-              >
-                <img src={frida} alt="" className="rounded-full" />
-              </button>
-            </Link>
-            <Link to="/artist/detail">
-              <h3
-                className="text-white text-bold mt-10"
-                style={{ fontSize: "18px" }}
-              >
-                {artist.name + " " + artist.surname}
-              </h3>
-            </Link>
-          </div>
-        ))}
+        {artistData
+          .map((artist) => (
+            <div className="flex flex-col items-center" key={artist.uuid}>
+              <Link to="/artist/detail">
+                <button
+                  style={{ border: "3px solid white" }}
+                  className="rounded-full"
+                >
+                  <img
+                    src={artist.imageArtist}
+                    alt=""
+                    className="rounded-full"
+                    style={{ width: "250px", height: "250px" }}
+                  />
+                </button>
+              </Link>
+              <Link to="/artist/detail">
+                <h3
+                  className="text-white text-bold mt-10 uppercase"
+                  style={{ fontSize: "18px" }}
+                >
+                  {artist.name + "  " + artist.surname}
+                </h3>
+              </Link>
+            </div>
+          ))
+          .slice(0, 5)}
       </div>
       <button
-        className="flex items-center justify-end gap-2 px-6 py-3 font-sans text-md font-bold text-center text-white align-middle transition-all rounded-lg select-none disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none hover:text-pink-500"
+        className="flex items-center justify-end gap-2 px-6 py-3 font-sans text-md font-light text-center text-white align-middle transition-all rounded-lg select-none disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none hover:text-pink-500 mr-10"
         type="button"
       >
-        View More
+        <Link to="/artists">View More</Link>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

@@ -24,7 +24,8 @@ body {
 
 h2 {
   font-family: "Manrope", sans-serif;
-  font-size: 1.3em;
+  font-size: 1.8em;
+  margin-bottom: 2em;
 }
 
 .menu li {
@@ -61,4 +62,11 @@ h2 {
 .artist h3:hover {
   color: #e71b82;
   transform: scale(1.2);
+}
+
+@media only screen and (min-width: 400px) {
+  img {
+    width: 150px;
+    height: 150px;
+  }
 }

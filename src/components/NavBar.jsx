@@ -71,6 +71,16 @@ const NavBar = () => {
           Ticket
         </Link>
       </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="white"
+        className="p-1 font-normal"
+      >
+        <Link to="/work" className="flex items-center">
+          Work whit Us
+        </Link>
+      </Typography>
     </ul>
   )
 

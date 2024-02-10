@@ -14,7 +14,7 @@ export const getAlArtist = (token) => {
                 console.log(data)
                 dispatch({
                     type: GET_ARTIST,
-                    payload: data
+                    payload: data.content
                 })
             } else {
                 throw new Error("Error in data recovery ")

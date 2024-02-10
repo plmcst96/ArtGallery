@@ -4,12 +4,21 @@ import {
   Button,
   IconButton,
   Collapse,
+  Drawer,
+  Input,
+  Textarea,
 } from "@material-tailwind/react"
 import { useEffect, useState } from "react"
+import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
+import { sendMail } from "../redux/actions/login"
 
 const NavBar = () => {
   const [openNav, setOpenNav] = useState(false)
+  const [open, setOpen] = useState(false)
+  const openDrawer = () => setOpen(true)
+  const closeDrawer = () => setOpen(false)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     window.addEventListener(
@@ -76,20 +85,140 @@ const NavBar = () => {
         variant="small"
         color="white"
         className="p-1 font-normal"
+        onClick={openDrawer}
       >
-        <Link to="/work" className="flex items-center">
-          Work whit Us
-        </Link>
+        Work whit Us
       </Typography>
     </ul>
   )
 
+  const [emailContent, setEmailContent] = useState({
+    name: "",
+    surname: "",
+    email: "",
+    descriptionRole: "",
+  })
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault()
+    // Invia l'email
+    dispatch(sendMail(emailContent))
+    // Chiudi il drawer
+    closeDrawer()
+    // Resetta il contenuto del form
+    setEmailContent({
+      name: "",
+      surname: "",
+      email: "",
+      descriptionRole: "",
+    })
+  }
+
   return (
     <div className=" overflow-scroll">
-      <Navbar
-        className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 nave"
-        color="transparent"
-      >
+      <Drawer open={open} onClose={closeDrawer} className="bg-[#04060a]">
+        <div className="flex items-center justify-between px-4 pb-2">
+          <Typography
+            variant="h5"
+            color="white"
+            className="font-bold"
+            style={{ marginTop: "6em" }}
+          >
+            Contact Us
+          </Typography>
+          <IconButton variant="text" color="white" onClick={closeDrawer}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+              className="h-5 w-5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </IconButton>
+        </div>
+        <div className="mb-5 px-4">
+          <Typography variant="small" color="white" className="font-normal ">
+            Write the message and then click button.
+          </Typography>
+        </div>
+        <form
+          className="flex flex-col gap-6 p-4"
+          onSubmit={(e) => e.preventDefault()}
+        >
+          <Typography variant="h6" className="mb-3 text-[#e71b82]">
+            Work whit Us
+          </Typography>
+          <Input
+            label="Name"
+            color="white"
+            variant="standard"
+            placeholder="Name"
+            value={emailContent.name}
+            onChange={(e) => {
+              setEmailContent({
+                ...emailContent,
+                name: e.target.value,
+              })
+            }}
+          />
+
+          <Input
+            label="Surname"
+            color="white"
+            variant="standard"
+            placeholder="Surname"
+            value={emailContent.surname}
+            onChange={(e) => {
+              setEmailContent({
+                ...emailContent,
+                surname: e.target.value,
+              })
+            }}
+          />
+          <Input
+            type="email"
+            label="Email"
+            color="white"
+            variant="standard"
+            placeholder="Email"
+            value={emailContent.email}
+            onChange={(e) => {
+              setEmailContent({
+                ...emailContent,
+                email: e.target.value,
+              })
+            }}
+          />
+          <Textarea
+            rows={6}
+            variant="standard"
+            label="Message"
+            className="mb-5"
+            value={emailContent.descriptionRole}
+            onChange={(e) => {
+              setEmailContent({
+                ...emailContent,
+                descriptionRole: e.target.value,
+              })
+            }}
+          />
+          <Button
+            type="submit"
+            className="bg-[#e71b82]"
+            onClick={handleFormSubmit}
+          >
+            Send Message
+          </Button>
+        </form>
+      </Drawer>
+      <Navbar className="fixed top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-2 bg-[#04060a] border-none">
         <div className="flex items-left justify-between text-white-900">
           <Typography
             as="a"

@@ -1,5 +1,6 @@
 export const POST_REGISTER = "POST_REGISTER";
 export const POST_LOGIN = "POST_LOGIN";
+export const SEND_MAIL_ADMIN = "SEND_MAIL_ADMIN"
 
 export const postRegister = (register) => {
     return async (dispatch) => {
@@ -54,6 +55,32 @@ export const postLogin = (login) => {
             }
         } catch (error) {
             console.log("error", error);
+        }
+    };
+};
+
+export const sendMail = (emailContent) => {
+    return async (dispatch) => {
+        try {
+            const res = await fetch("http://localhost:3001/users/sendEmailAdmin", {
+                method: "POST",
+                body: JSON.stringify(emailContent),
+                headers: {
+                    "Content-Type": "application/json",
+
+                },
+            });
+            if (res.ok) {
+
+                dispatch({
+                    type: SEND_MAIL_ADMIN,
+                    payload: emailContent,
+                });
+            } else {
+                throw new Error("Something went wrong.");
+            }
+        } catch (error) {
+            console.log(error);
         }
     };
 };

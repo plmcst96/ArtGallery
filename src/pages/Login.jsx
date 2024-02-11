@@ -7,7 +7,10 @@ const Login = () => {
   const [isLoding, setIsLoding] = useState(true)
 
   return (
-    <div className="flex justify-center ">
+    <div
+      className="flex justify-center "
+      style={{ marginTop: "15em", marginBottom: "5em" }}
+    >
       <Card className=" w-96">
         <div className="flex flex-row justify-center log">
           <CardHeader className="relative w-45">

@@ -64,6 +64,10 @@ h2 {
   transform: scale(1.2);
 }
 
+.bottone {
+  font-size: 13px;
+}
+
 #new {
   background-image: url("./assets/newsletter.png");
   box-sizing: content-box;

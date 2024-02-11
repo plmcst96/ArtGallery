@@ -1,7 +1,8 @@
-import { GET_ARTIST } from "../actions/artist"
+import { GET_ARTIST, SINGLE_ARTIST } from "../actions/artist"
 
 const initialState = {
-    artists: []
+    artists: [],
+    singleArtist: null
 }
 
 const artistReducer = (state = initialState, action) => {
@@ -10,6 +11,11 @@ const artistReducer = (state = initialState, action) => {
             return {
                 ...state,
                 artists: action.payload
+            }
+        case SINGLE_ARTIST:
+            return {
+                ...state,
+                singleArtist: action.payload
             }
         default:
             return state

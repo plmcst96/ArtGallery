@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
@@ -8,6 +8,7 @@ const ArtistHome = () => {
   const artistData = useSelector((state) => state.artist.artists)
   const dispatch = useDispatch()
   const token = localStorage.getItem("token")
+  const navigate = useNavigate()
 
   useEffect(() => {
     dispatch(getAlArtist(token))
@@ -26,27 +27,30 @@ const ArtistHome = () => {
         {artistData
           .map((artist) => (
             <div className="flex flex-col items-center" key={artist.uuid}>
-              <Link to="/artist/detail">
-                <button
-                  style={{ border: "3px solid white" }}
+              <button
+                style={{ border: "3px solid white" }}
+                className="rounded-full"
+              >
+                <img
+                  src={artist.imageArtist}
+                  alt=""
                   className="rounded-full"
-                >
-                  <img
-                    src={artist.imageArtist}
-                    alt=""
-                    className="rounded-full"
-                    style={{ width: "250px", height: "250px" }}
-                  />
-                </button>
-              </Link>
-              <Link to="/artist/detail">
-                <h3
-                  className="text-white text-bold mt-10 uppercase"
-                  style={{ fontSize: "18px" }}
-                >
-                  {artist.name + "  " + artist.surname}
-                </h3>
-              </Link>
+                  style={{ width: "250px", height: "250px" }}
+                  onClick={() => {
+                    navigate("/artist/detail/" + artist.uuid)
+                  }}
+                />
+              </button>
+
+              <h3
+                className="text-white text-bold mt-10 uppercase"
+                style={{ fontSize: "18px" }}
+                onClick={() => {
+                  navigate("/artist/detail/" + artist.uuid)
+                }}
+              >
+                {artist.name + "  " + artist.surname}
+              </h3>
             </div>
           ))
           .slice(0, 5)}
@@ -55,7 +59,7 @@ const ArtistHome = () => {
         className="flex items-center justify-end gap-2 px-6 py-3 font-sans text-md font-light text-center text-white align-middle transition-all rounded-lg select-none disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none hover:text-pink-500 mr-10"
         type="button"
       >
-        <Link to="/artists">View More</Link>
+        <Link to="/artist">View More</Link>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

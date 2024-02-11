@@ -1,7 +1,7 @@
 import ArtistHome from "../components/ArtistHome"
+import BlogHome from "../components/BlogHome"
 import CarouselHero from "../components/CarouselHero"
 import EventHome from "../components/EventHome"
-import ExhibitionHome from "../components/ExhibitionHome"
 
 const HomePage = () => {
   return (
@@ -9,7 +9,7 @@ const HomePage = () => {
       <CarouselHero />
       <ArtistHome />
       <EventHome />
-      <ExhibitionHome />
+      <BlogHome />
     </>
   )
 }

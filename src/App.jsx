@@ -5,6 +5,7 @@ import NavBar from "./components/NavBar"
 import Login from "./pages/Login"
 import Footer from "./pages/Footer"
 import HomePage from "./pages/HomePage"
+import NewsLetter from "./components/NewsLetter"
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/login" element={<Login />} />
         </Routes>
       </main>
+      <NewsLetter />
       <Footer />
     </BrowserRouter>
   )

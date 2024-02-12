@@ -25,7 +25,10 @@ const ArtistList = () => {
 
   return (
     <>
-      <div id="art" className="grid grid-cols-5 gap-x-5 gap-y-10 mx-5 my-20">
+      <div
+        id="art"
+        className="grid grid-cols-2 lg:grid-cols-5 md:grid-cols-3 gap-x-5 gap-y-10 mx-5 my-20"
+      >
         {artistData.map((artist) => (
           <Card
             shadow={false}

@@ -10,6 +10,7 @@ import {
   Typography,
 } from "@material-tailwind/react"
 import ArtistDetaillHist from "../components/ArtistDetailHist"
+import Gallery from "../components/Gallery"
 
 const ArtistDetail = () => {
   const singleArtist = useSelector((state) => state.artist.singleArtist)
@@ -38,7 +39,7 @@ const ArtistDetail = () => {
     <>
       <Card
         shadow={false}
-        className="relative grid h-[40rem] w-full items-end justify-center overflow-hidden text-center"
+        className="relative grid h-[32rem] w-full items-end justify-center overflow-hidden text-center"
       >
         <CardHeader
           floated={false}
@@ -84,7 +85,8 @@ const ArtistDetail = () => {
           </div>
         </CardBody>
       </Card>
-      <ArtistDetaillHist />
+      <ArtistDetaillHist singleArtist={singleArtist} />
+      <Gallery />
     </>
   )
 }

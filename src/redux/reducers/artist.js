@@ -1,8 +1,9 @@
 import { GET_ARTIST, SINGLE_ARTIST } from "../actions/artist"
 
+
 const initialState = {
     artists: [],
-    singleArtist: null
+    singleArtist: null,
 }
 
 const artistReducer = (state = initialState, action) => {

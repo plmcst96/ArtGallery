@@ -9,16 +9,15 @@ import {
   Textarea,
 } from "@material-tailwind/react"
 import { useEffect, useState } from "react"
-import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
-import { sendMail } from "../redux/actions/login"
+import emailjs from "@emailjs/browser"
+import { toast } from "react-toastify"
 
 const NavBar = () => {
   const [openNav, setOpenNav] = useState(false)
   const [open, setOpen] = useState(false)
   const openDrawer = () => setOpen(true)
   const closeDrawer = () => setOpen(false)
-  const dispatch = useDispatch()
 
   useEffect(() => {
     window.addEventListener(
@@ -99,10 +98,30 @@ const NavBar = () => {
     descriptionRole: "",
   })
 
+  const formData = {
+    name: emailContent.name,
+    surname: emailContent.surname,
+    email: emailContent.email,
+    descriptionRole: emailContent.descriptionRole,
+  }
+
   const handleFormSubmit = (e) => {
     e.preventDefault()
     // Invia l'email
-    dispatch(sendMail(emailContent))
+
+    emailjs
+      .send("service_art_gallerys", "email_curator", formData, {
+        publicKey: "ShSV0UuatuQKO5UNM",
+      })
+      .then(
+        () => {
+          toast.success("email send with success")
+        },
+        (error) => {
+          console.log("FAILED...", error.text)
+        }
+      )
+
     // Chiudi il drawer
     closeDrawer()
     // Resetta il contenuto del form
@@ -148,10 +167,7 @@ const NavBar = () => {
             Write the message and then click button.
           </Typography>
         </div>
-        <form
-          className="flex flex-col gap-6 p-4"
-          onSubmit={(e) => e.preventDefault()}
-        >
+        <form className="flex flex-col gap-6 p-4" onSubmit={handleFormSubmit}>
           <Typography variant="h6" className="mb-3 text-[#e71b82]">
             Work whit Us
           </Typography>
@@ -209,11 +225,7 @@ const NavBar = () => {
               })
             }}
           />
-          <Button
-            type="submit"
-            className="bg-[#e71b82]"
-            onClick={handleFormSubmit}
-          >
+          <Button type="submit" className="bg-[#e71b82]">
             Send Message
           </Button>
         </form>

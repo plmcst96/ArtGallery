@@ -1,4 +1,4 @@
-import { POST_LOGIN, POST_REGISTER, SEND_MAIL_ADMIN } from "../actions/login";
+import { POST_LOGIN, POST_REGISTER, POST_REGISTER_CURATOR } from "../actions/login";
 
 
 const initialState = {
@@ -21,7 +21,7 @@ const registerReducer = (state = initialState, action) => {
                 token: action.payload.token,
                 role: action.payload.role
             }
-        case SEND_MAIL_ADMIN:
+        case POST_REGISTER_CURATOR:
             return {
                 ...state,
                 emailSent: action.payload

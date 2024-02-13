@@ -1,0 +1,46 @@
+import { Card, CardBody, CardHeader } from "@material-tailwind/react"
+import { useState } from "react"
+import { Button } from "react-day-picker"
+import LoginForm from "../components/LoginForm"
+import RegisterFormCurator from "../components/RegisterFormCurator"
+
+const LoginCurator = () => {
+  const [isLoding, setIsLoding] = useState(true)
+
+  return (
+    <div
+      className="flex justify-center "
+      style={{ marginTop: "15em", marginBottom: "5em" }}
+    >
+      <Card className=" w-96">
+        <div className="flex flex-row justify-center log">
+          <CardHeader className="relative w-45">
+            <Button
+              className=" bottone"
+              variant="text"
+              onClick={() => {
+                setIsLoding(true)
+              }}
+            >
+              LOG IN
+            </Button>
+            <Button
+              className="bottone"
+              variant="text"
+              onClick={() => {
+                setIsLoding(false)
+              }}
+            >
+              SING UP
+            </Button>
+          </CardHeader>
+        </div>
+        <CardBody>
+          {isLoding ? <LoginForm /> : <RegisterFormCurator />}
+        </CardBody>
+      </Card>
+    </div>
+  )
+}
+
+export default LoginCurator

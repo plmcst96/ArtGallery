@@ -9,12 +9,14 @@ import {
 import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { postLogin } from "../redux/actions/login"
+import { useNavigate } from "react-router-dom"
 
 const LoginForm = () => {
   const [login, setLogin] = useState({
     email: "",
     password: "",
   })
+  const navigate = useNavigate()
 
   const dispatch = useDispatch()
 
@@ -58,6 +60,7 @@ const LoginForm = () => {
           onClick={(e) => {
             e.preventDefault()
             dispatch(postLogin(login))
+            navigate("/")
           }}
         >
           Log In

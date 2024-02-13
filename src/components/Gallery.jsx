@@ -1,8 +1,19 @@
 import { CardHeader, Step, Stepper, Typography } from "@material-tailwind/react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+
+import { getGallery } from "../redux/actions/artistWork"
 
 const Gallery = () => {
   const [activeStep, setActiveStep] = useState(0)
+  const galleryUuid = useSelector((state) => state.gallery.galleryId)
+  const dispatch = useDispatch()
+  const token = localStorage.getItem("token")
+
+  useEffect(() => {
+    dispatch(getGallery(token, galleryUuid))
+  }, [dispatch, token, galleryUuid])
+
   return (
     <div className="mt-20 text-center">
       <Typography variant="h2" className="text-[#e71b82] mt-20">
@@ -30,7 +41,7 @@ const Gallery = () => {
               >
                 <div className="absolute -bottom-[2.3rem] w-max text-center text-xs">
                   <Typography variant="h6" color="inherit">
-                    HTML
+                    1900-1920
                   </Typography>
                 </div>
               </Step>
@@ -42,7 +53,7 @@ const Gallery = () => {
               >
                 <div className="absolute -bottom-[2.3rem] w-max text-center text-xs">
                   <Typography variant="h6" color="inherit">
-                    React
+                    1930-1940
                   </Typography>
                 </div>
               </Step>
@@ -54,7 +65,7 @@ const Gallery = () => {
               >
                 <div className="absolute -bottom-[2.3rem] w-max text-center text-xs">
                   <Typography variant="h6" color="inherit">
-                    Vue
+                    1950-1960
                   </Typography>
                 </div>
               </Step>
@@ -66,7 +77,7 @@ const Gallery = () => {
               >
                 <div className="absolute -bottom-[2.3rem] w-max text-center text-xs">
                   <Typography variant="h6" color="inherit">
-                    Svelte
+                    1970-1980
                   </Typography>
                 </div>
               </Step>

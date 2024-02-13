@@ -11,9 +11,11 @@ import {
 } from "@material-tailwind/react"
 import ArtistDetaillHist from "../components/ArtistDetailHist"
 import Gallery from "../components/Gallery"
+import { loadGalleryId } from "../redux/actions/artistWork"
 
 const ArtistDetail = () => {
   const singleArtist = useSelector((state) => state.artist.singleArtist)
+  const galleryId = useSelector((state) => state.gallery.galleryId)
   const { uuid } = useParams()
   const dispatch = useDispatch()
   const token = localStorage.getItem("token")
@@ -22,6 +24,10 @@ const ArtistDetail = () => {
   useEffect(() => {
     if (!singleArtist) {
       dispatch(getSingleArtist(uuid, token))
+    }
+
+    if (!galleryId) {
+      dispatch(loadGalleryId(token, uuid))
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -86,7 +92,7 @@ const ArtistDetail = () => {
         </CardBody>
       </Card>
       <ArtistDetaillHist singleArtist={singleArtist} />
-      <Gallery />
+      <Gallery galleryId={galleryId} />
     </>
   )
 }

@@ -6,13 +6,13 @@ import { getGallery } from "../redux/actions/artistWork"
 
 const Gallery = () => {
   const [activeStep, setActiveStep] = useState(0)
-  const galleryUuid = useSelector((state) => state.gallery.galleryId)
   const dispatch = useDispatch()
   const token = localStorage.getItem("token")
+  const galleryId = useSelector((state) => state.gallery.galleryId)
 
   useEffect(() => {
-    dispatch(getGallery(token, galleryUuid))
-  }, [dispatch, token, galleryUuid])
+    dispatch(getGallery(token, galleryId))
+  }, [dispatch, token, galleryId])
 
   return (
     <div className="mt-20 text-center">

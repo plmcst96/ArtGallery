@@ -7,9 +7,9 @@ import { useState } from "react"
 const ArtistDetaillHist = ({ singleArtist }) => {
   const [showModal, setShowModal] = useState(false)
   return (
-    <div className="grid grid-cols-2 gap-10 m-10 mb-20">
+    <div className="grid grid-cols-2 gap-20 my-10 mx-20 mb-20">
       <Card className="mt-6 bg-[#EFEFEF]">
-        <CardBody>
+        <CardBody className="px-20 py-10">
           <img
             src={quote}
             alt="quote"
@@ -26,7 +26,7 @@ const ArtistDetaillHist = ({ singleArtist }) => {
             src={singleArtist.imageArtist}
             alt=""
             className="w-full rounded-xl"
-            style={{ height: "240px" }}
+            style={{ objectFit: "cover", objectPosition: "100% 30%" }}
           />
         </CardBody>
       </Card>
@@ -38,6 +38,13 @@ const ArtistDetaillHist = ({ singleArtist }) => {
             style={{ fontSize: "16px" }}
           >
             HISTORY
+          </p>
+          <p
+            color="blue-gray"
+            className="font-bold ms-8 mb-5"
+            style={{ fontSize: "14px" }}
+          >
+            {singleArtist.birthDate} | {singleArtist.dieDate}
           </p>
           <Typography style={{ margin: "0 2em" }}>
             {singleArtist.historyArtist.slice(0, 527)}

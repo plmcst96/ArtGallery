@@ -65,7 +65,7 @@ const NavBar = () => {
         color="white"
         className="p-1 font-normal"
       >
-        <Link to="/event" className="flex items-center">
+        <Link to="/events" className="flex items-center">
           Event
         </Link>
       </Typography>

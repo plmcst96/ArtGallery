@@ -41,7 +41,7 @@ const ArtistDetaillHist = ({ singleArtist }) => {
           </p>
           <p
             color="blue-gray"
-            className="font-bold ms-8 mb-5"
+            className="font-bold ms-8 mb-5s"
             style={{ fontSize: "14px" }}
           >
             {singleArtist.birthDate} | {singleArtist.dieDate}

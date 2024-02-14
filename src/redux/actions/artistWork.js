@@ -4,7 +4,7 @@ export const LOAD_GALLERY_ID = "LOAD_GALLERY_ID"
 export const getGallery = (token, galleryId) => {
     return async (dispatch) => {
         try {
-            const response = await fetch("http://localhost:3001/artis-work/artist/groupByYear/" + galleryId.uuid, {
+            const response = await fetch("http://localhost:3001/artist-work/artist/groupByYear/" + galleryId.uuid, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }

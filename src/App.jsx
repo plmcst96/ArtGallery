@@ -9,6 +9,8 @@ import NewsLetter from "./components/NewsLetter"
 import ArtistList from "./pages/ArtistList"
 import ArtistDetail from "./pages/ArtistDetail"
 import LoginForm from "./components/LoginForm"
+import EventsListAll from "./pages/EventListAll"
+import EventDetail from "./components/EventDetail"
 
 function App() {
   return (
@@ -16,11 +18,13 @@ function App() {
       <NavBar />
       <main>
         <Routes>
-          <Route path="/" element={<HomePage></HomePage>} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/login/curator" element={<LoginForm />} />
           <Route path="/artist" element={<ArtistList />} />
           <Route path="/artist/detail/:uuid" element={<ArtistDetail />} />
+          <Route path="/events" element={<EventsListAll />} />
+          <Route path="/event/detail/:uuid" element={<EventDetail />} />
         </Routes>
       </main>
       <NewsLetter />

@@ -1,7 +1,8 @@
-import { GET_EVENT } from "../actions/event"
+import { GET_EVENT, GET_SINGLE_EVENT } from "../actions/event"
 
 const initialState = {
-    events: []
+    events: [],
+    singleEvent: null
 }
 
 const eventReducer = (state = initialState, action) => {
@@ -10,6 +11,11 @@ const eventReducer = (state = initialState, action) => {
             return {
                 ...state,
                 events: action.payload
+            }
+        case GET_SINGLE_EVENT:
+            return {
+                ...state,
+                singleEvent: action.payload
             }
         default:
             return state

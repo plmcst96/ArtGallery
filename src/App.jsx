@@ -13,6 +13,7 @@ import EventsListAll from "./pages/EventListAll"
 import EventDetail from "./components/EventDetail"
 import BlogList from "./pages/BlogList"
 import BlogDetail from "./components/BlogDetail"
+import Ticket from "./pages/Ticket"
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/event/detail/:uuid" element={<EventDetail />} />
           <Route path="/blog" element={<BlogList />} />
           <Route path="/blog/detail/:uuid" element={<BlogDetail />} />
+          <Route path="/tickets/:uuid" element={<Ticket />} />
         </Routes>
       </main>
       <NewsLetter />

@@ -4,13 +4,15 @@ import registerReducer from "../reducers/login"
 import eventReducer from "../reducers/event"
 import galleryReducer from "../reducers/artistWork"
 import blogReducer from "../reducers/blog"
+import ticketReducer from "../reducers/ticket"
 
 const bigReducer = combineReducers({
     artist: artistReducer,
     register: registerReducer,
     event: eventReducer,
     gallery: galleryReducer,
-    blog: blogReducer
+    blog: blogReducer,
+    ticket: ticketReducer
 })
 
 const store = configureStore({

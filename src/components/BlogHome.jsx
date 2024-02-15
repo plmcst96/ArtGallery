@@ -19,7 +19,7 @@ const BlogHome = () => {
       <div className="grid lg:grid-cols-4 grid-cols-2 gap-10 mx-20">
         {blogData
           .map((blog) => (
-            <div className="lg:col-span-2 rounded-lg" key={blog.uuid}>
+            <div className="rounded-lg" key={blog.uuid}>
               <img
                 src={blog.image[0]}
                 alt="blog"
@@ -30,7 +30,7 @@ const BlogHome = () => {
               <p className="text-white font-light mt-4">{blog.date}</p>
             </div>
           ))
-          .slice(0, 2)}
+          .slice(0, 4)}
       </div>
     </>
   )

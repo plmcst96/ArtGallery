@@ -27,7 +27,7 @@ const BlogList = () => {
         className="text-white ml-20"
         style={{ marginTop: "3em", fontSize: "2em", marginBottom: "2em" }}
       >
-        EVENTS__
+        BLOGS__
       </h2>
       {blogData.map((blog) => (
         <div key={blog.uuid}>

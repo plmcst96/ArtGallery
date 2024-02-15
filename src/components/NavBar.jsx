@@ -32,7 +32,7 @@ const NavBar = () => {
         as="li"
         variant="small"
         color="white"
-        className="p-1 font-medium"
+        className="p-1 font-medium cursor-pointer"
         type="button"
       >
         <Link to="/artist" className="flex items-center">
@@ -43,7 +43,7 @@ const NavBar = () => {
         as="li"
         variant="small"
         color="white"
-        className="p-1 font-normal"
+        className="p-1 font-normal cursor-pointer"
       >
         <Link to="/blog" className="flex items-center">
           Blog
@@ -53,7 +53,7 @@ const NavBar = () => {
         as="li"
         variant="small"
         color="white"
-        className="p-1 font-normal"
+        className="p-1 font-normal cursor-pointer"
       >
         <Link to="/exhibitions" className="flex items-center">
           Exhibition
@@ -63,7 +63,7 @@ const NavBar = () => {
         as="li"
         variant="small"
         color="white"
-        className="p-1 font-normal"
+        className="p-1 font-normal cursor-pointer"
       >
         <Link to="/events" className="flex items-center">
           Event
@@ -73,7 +73,7 @@ const NavBar = () => {
         as="li"
         variant="small"
         color="white"
-        className="p-1 font-normal"
+        className="p-1 font-normal cursor-pointer"
       >
         <Link to="/tickets" className="flex items-center">
           Ticket
@@ -83,7 +83,7 @@ const NavBar = () => {
         as="li"
         variant="small"
         color="white"
-        className="p-1 font-normal"
+        className="p-1 font-normal cursor-pointer"
         onClick={openDrawer}
       >
         Work whit Us

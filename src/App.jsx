@@ -11,6 +11,8 @@ import ArtistDetail from "./pages/ArtistDetail"
 import LoginForm from "./components/LoginForm"
 import EventsListAll from "./pages/EventListAll"
 import EventDetail from "./components/EventDetail"
+import BlogList from "./pages/BlogList"
+import BlogDetail from "./components/BlogDetail"
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
           <Route path="/artist/detail/:uuid" element={<ArtistDetail />} />
           <Route path="/events" element={<EventsListAll />} />
           <Route path="/event/detail/:uuid" element={<EventDetail />} />
+          <Route path="/blog" element={<BlogList />} />
+          <Route path="/blog/detail/:uuid" element={<BlogDetail />} />
         </Routes>
       </main>
       <NewsLetter />

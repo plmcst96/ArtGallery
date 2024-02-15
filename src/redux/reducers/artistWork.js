@@ -1,8 +1,9 @@
-import { GET_GALLERY, LOAD_GALLERY_ID } from "../actions/artistWork"
+import { GET_GALLERY, GET_SINGLE_ARTWORK, LOAD_GALLERY_ID } from "../actions/artistWork"
 
 const initialState = {
     gallery: [],
-    galleryId: null
+    galleryId: null,
+    singleArtwork: null
 }
 
 const galleryReducer = (state = initialState, action) => {
@@ -16,6 +17,11 @@ const galleryReducer = (state = initialState, action) => {
             return {
                 ...state,
                 galleryId: action.payload
+            }
+        case GET_SINGLE_ARTWORK:
+            return {
+                ...state,
+                singleArtwork: action.payload
             }
         default:
             return state

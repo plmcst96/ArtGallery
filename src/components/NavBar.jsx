@@ -45,8 +45,8 @@ const NavBar = () => {
         color="white"
         className="p-1 font-normal"
       >
-        <Link to="/gallery" className="flex items-center">
-          Gallery
+        <Link to="/blog" className="flex items-center">
+          Blog
         </Link>
       </Typography>
       <Typography

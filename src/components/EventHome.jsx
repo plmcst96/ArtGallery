@@ -35,7 +35,7 @@ const EventHome = () => {
                 className="m-0 w-2/5 shrink-0 rounded"
               >
                 <img
-                  src={event.image}
+                  src={event.image[0]}
                   alt="card-image"
                   className="h-full w-full object-cover"
                 />

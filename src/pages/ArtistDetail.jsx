@@ -15,6 +15,7 @@ import { loadGalleryId } from "../redux/actions/artistWork"
 
 const ArtistDetail = () => {
   const singleArtist = useSelector((state) => state.artist.singleArtist)
+  // eslint-disable-next-line no-unused-vars
   const galleryId = useSelector((state) => state.gallery.galleryId)
   const { uuid } = useParams()
   const dispatch = useDispatch()
@@ -26,9 +27,7 @@ const ArtistDetail = () => {
       dispatch(getSingleArtist(uuid, token))
     }
 
-    if (!galleryId) {
-      dispatch(loadGalleryId(token, uuid))
-    }
+    dispatch(loadGalleryId(token, uuid))
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, singleArtist, uuid, token])
@@ -52,7 +51,10 @@ const ArtistDetail = () => {
           shadow={false}
           color="transparent"
           className="absolute inset-0 m-0 h-full w-full rounded-none bg-cover bg-center"
-          style={{ backgroundImage: `url(${singleArtist.imageArtist})` }}
+          style={{
+            backgroundImage: `url(${singleArtist.imageArtist})`,
+            marginTop: "4em",
+          }}
         >
           <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-t from-black/80 via-black/50" />
         </CardHeader>
@@ -124,7 +126,7 @@ const ArtistDetail = () => {
               className="rounded-full bottone"
               style={{ width: "140px" }}
             >
-              Gallery
+              <a href="#gallery">Gallery</a>
             </Button>
             <Button
               size="lg"

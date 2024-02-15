@@ -1,8 +1,15 @@
-import { SET_DATE, SET_TIME } from "../actions/ticket";
+import { SET_DATE, SET_TIME, UPDATE_COUNTER, UPDATE_TOTAL } from "../actions/ticket";
 
 const initialState = {
     selectedDate: null,
-    selectedTime: null
+    selectedTime: null,
+    selectedType: {
+        standard: 0,
+        under7: 0,
+        over60: 0,
+        student: 0
+    },
+    total: 0
 };
 
 const ticketReducer = (state = initialState, action) => {
@@ -16,6 +23,16 @@ const ticketReducer = (state = initialState, action) => {
             return {
                 ...state,
                 selectedTime: action.payload
+            }
+        case UPDATE_COUNTER:
+            return {
+                ...state,
+                selectedType: action.payload
+            }
+        case UPDATE_TOTAL:
+            return {
+                ...state,
+                total: action.payload
             }
         default:
             return state;

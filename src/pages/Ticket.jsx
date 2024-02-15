@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom"
 import { getSingleEvent } from "../redux/actions/event"
 import { Button, Typography } from "@material-tailwind/react"
 import DatePickerTicket from "../components/DatePickerTicket"
+import TimeSlotTicket from "../components/TimeSlotTicket"
+import TypeTicket from "../components/TypeTicket"
 
 const Ticket = () => {
   const singleEvent = useSelector((state) => state.event.singleEvent)
@@ -24,25 +26,27 @@ const Ticket = () => {
   }
 
   return (
-    <div className="mt-20">
+    <div style={{ marginTop: "8em" }}>
       <Typography variant="h2" color="white" className="mx-20">
         BUYING TICKETS__
       </Typography>
-      <div className="grid grid-cols-4 mx-20 my-20 gap-5">
+      <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 mx-20 my-20 gap-5">
         <div className="col-span-2">
           <img
             src={singleEvent.image[0]}
             alt="ticket-event"
-            className=" h-60 rounded-xl"
-            style={{ width: " 70%", objectFit: "cover" }}
+            className=" rounded-xl"
+            style={{ width: " 70%", objectFit: "cover", height: "60%" }}
           />
         </div>
-        <div>
-          <Typography variant="h5" className="text-[#e71b82] uppercase">
-            {singleEvent.title}
+        <div className=" md:col-span-2 w-full">
+          <Typography variant="h4" className="text-[#e71b82] uppercase">
+            {singleEvent.title + "__"}
           </Typography>
-          <p className="text-white mt-5">{singleEvent.date}</p>
+          <p className="text-white mt-3">{singleEvent.date}</p>
           <DatePickerTicket />
+          <TimeSlotTicket />
+          <TypeTicket singleEvent={singleEvent} />
         </div>
       </div>
     </div>

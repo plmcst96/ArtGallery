@@ -6,6 +6,9 @@ import { useDispatch } from "react-redux"
 import { setDateTicket } from "../redux/actions/ticket"
 
 const StyledStaticDatePicker = styled(StaticDatePicker)({
+  borderRadius: "10px",
+  marginTop: "3em",
+  marginRight: "19em",
   ".MuiPickersDay-root": {
     color: "#04060a",
     borderRadius: 20,
@@ -26,9 +29,12 @@ const StyledStaticDatePicker = styled(StaticDatePicker)({
     color: "white",
     borderRadius: 20,
     borderWidth: 0,
-    borderColor: "#e71b82",
+    borderColor: "white",
     border: "0px solid",
     backgroundColor: "#e71b82",
+  },
+  ".MuiDialogActions-root": {
+    display: "none",
   },
 })
 const DatePickerTicket = () => {
@@ -42,13 +48,11 @@ const DatePickerTicket = () => {
   }
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-gb">
-      <StyledStaticDatePicker
-        value={date}
-        onChange={handleDateChange}
-        ToolbarComponent={() => null}
-      />
-    </LocalizationProvider>
+    <div className="md:col-span-1">
+      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-gb">
+        <StyledStaticDatePicker value={date} onChange={handleDateChange} />
+      </LocalizationProvider>
+    </div>
   )
 }
 

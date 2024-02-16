@@ -1,6 +1,6 @@
-import { Card, CardBody, CardHeader } from "@material-tailwind/react"
+import { Button, Card, CardBody, CardHeader } from "@material-tailwind/react"
 import { useState } from "react"
-import { Button } from "react-day-picker"
+
 import LoginForm from "../components/LoginForm"
 import RegisterFormCurator from "../components/RegisterFormCurator"
 

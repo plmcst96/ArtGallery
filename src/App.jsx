@@ -8,12 +8,13 @@ import HomePage from "./pages/HomePage"
 import NewsLetter from "./components/NewsLetter"
 import ArtistList from "./pages/ArtistList"
 import ArtistDetail from "./pages/ArtistDetail"
-import LoginForm from "./components/LoginForm"
 import EventsListAll from "./pages/EventListAll"
 import EventDetail from "./components/EventDetail"
 import BlogList from "./pages/BlogList"
 import BlogDetail from "./components/BlogDetail"
 import Ticket from "./pages/Ticket"
+import Checkout from "./pages/Checkout"
+import LoginCurator from "./pages/LoginCurator"
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/login/curator" element={<LoginForm />} />
+          <Route path="/login/curator" element={<LoginCurator />} />
           <Route path="/artist" element={<ArtistList />} />
           <Route path="/artist/detail/:uuid" element={<ArtistDetail />} />
           <Route path="/events" element={<EventsListAll />} />
@@ -31,6 +32,7 @@ function App() {
           <Route path="/blog" element={<BlogList />} />
           <Route path="/blog/detail/:uuid" element={<BlogDetail />} />
           <Route path="/tickets/:uuid" element={<Ticket />} />
+          <Route path="/checkout/:uuid" element={<Checkout />} />
         </Routes>
       </main>
       <NewsLetter />

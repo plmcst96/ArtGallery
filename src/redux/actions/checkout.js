@@ -1,6 +1,9 @@
+
+
 export const CHECKOUT_REQUEST = 'CHECKOUT_REQUEST';
 export const CHECKOUT_SUCCESS = 'CHECKOUT_SUCCESS';
 export const CHECKOUT_FAILURE = 'CHECKOUT_FAILURE';
+
 
 export const postCheckout = (details, token) => async (dispatch) => {
     dispatch({ type: CHECKOUT_REQUEST });

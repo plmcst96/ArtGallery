@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Link, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { getSingleEvent } from "../redux/actions/event"
 import { Button, Typography } from "@material-tailwind/react"
 import ArtistHome from "./ArtistHome"
@@ -10,6 +10,7 @@ const EventDetail = () => {
   const dispatch = useDispatch()
   const { uuid } = useParams()
   const token = localStorage.getItem("token")
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!singleEvent) {
@@ -87,8 +88,9 @@ const EventDetail = () => {
             variant="filled"
             className="rounded-full bottone mr-6 bg-[#e71b82] hover:bg-black "
             style={{ width: "170px" }}
+            onClick={() => navigate("/tickets/" + singleEvent.uuid)}
           >
-            <Link to="/tickets">Buy Ticket</Link>
+            Buy Ticket
           </Button>
         </div>
       </div>

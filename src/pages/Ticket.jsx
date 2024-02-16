@@ -43,6 +43,7 @@ const Ticket = () => {
           <Typography variant="h4" className="text-[#e71b82] uppercase">
             {singleEvent.title + "__"}
           </Typography>
+          <p className="text-white mt-3">{singleEvent.typeEvent}</p>
           <p className="text-white mt-3">{singleEvent.date}</p>
           <DatePickerTicket />
           <TimeSlotTicket />

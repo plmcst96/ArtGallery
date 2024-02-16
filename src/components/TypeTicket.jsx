@@ -7,39 +7,43 @@ import { updateCounter, updateTotal } from "../redux/actions/ticket"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
 import { postCheckout } from "../redux/actions/checkout"
+import { useNavigate } from "react-router-dom"
 
 // eslint-disable-next-line react/prop-types
 const TypeTicket = ({ singleEvent }) => {
   const dispatch = useDispatch()
-  const count = useSelector((state) => state.ticket.selectedType)
+  const typeTicket = useSelector((state) => state.ticket.selectedType)
   const date = useSelector((state) => state.ticket.selectedDate)
-  const time = useSelector((state) => state.ticket.selectedTime)
-  const tot = useSelector((state) => state.ticket.total)
+  const hour = useSelector((state) => state.ticket.selectedTime)
+  const total = useSelector((state) => state.ticket.total)
+  const event = singleEvent.uuid
+  const navigate = useNavigate()
+
   const token = localStorage.getItem("token")
-  const checkoutDetails = { date, time, count, tot }
+  const checkoutDetails = { date, hour, typeTicket, total, event }
 
   const increment = (type) => {
     dispatch(
       updateCounter({
-        ...count,
-        [type]: count[type] + 1,
+        ...typeTicket,
+        [type]: typeTicket[type] + 1,
       })
     )
   }
 
   const decrement = (type) => {
-    if (count[type] > 0) {
+    if (typeTicket[type] > 0) {
       dispatch(
         updateCounter({
-          ...count,
-          [type]: count[type] - 1,
+          ...typeTicket,
+          [type]: typeTicket[type] - 1,
         })
       )
     }
   }
 
   const calculateTotal = () => {
-    const { standard, under7, over60, student } = count
+    const { standard, under7, over60, student } = typeTicket
     const standardTotal = standard * singleEvent.amount
     const under7Total = under7 * (singleEvent.amount - 15)
     const over60Total = over60 * (singleEvent.amount - 12)
@@ -50,18 +54,14 @@ const TypeTicket = ({ singleEvent }) => {
   useEffect(() => {
     const newTotal = calculateTotal()
     dispatch(updateTotal(newTotal))
-  }, [count, singleEvent.amount, dispatch])
-
-  const handleCheckout = () => {
-    dispatch(postCheckout(checkoutDetails, token))
-  }
+  }, [typeTicket, singleEvent.amount, dispatch])
 
   return (
     <div className="w-full mt-20">
       <Typography variant="h5" color="white" className="mt-10">
         Choose Category__
       </Typography>
-      {Object.entries(count).map(([type, count]) => (
+      {Object.entries(typeTicket).map(([type, count]) => (
         <div key={type}>
           <div className="grid grid-cols-3 col-span-2 mt-10">
             <div>
@@ -122,7 +122,10 @@ const TypeTicket = ({ singleEvent }) => {
           variant="filled"
           className="bg-[#e71b82] rounded-full"
           size="md"
-          onClick={handleCheckout}
+          onClick={() => {
+            dispatch(postCheckout(checkoutDetails, token))
+            navigate("/checkout/" + singleEvent.uuid)
+          }}
         >
           Checkout
         </Button>

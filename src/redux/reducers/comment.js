@@ -1,8 +1,9 @@
-import { ADD_COMMENT, DELETE_COMMENTS, GET_COMMENTS } from "../actions/comment"
+import { ADD_COMMENT, DELETE_COMMENTS, GET_COMMENTS, PUT_COMMENT } from "../actions/comment"
 
 const initialState = {
     comments: [],
-    addComment: null
+    addComment: null,
+    updateComment: ""
 }
 
 const commentReducer = (state = initialState, action) => {
@@ -22,6 +23,11 @@ const commentReducer = (state = initialState, action) => {
                 ...state,
                 comments: state.comments.filter(comm => comm.uuid !== action.payload)
 
+            }
+        case PUT_COMMENT:
+            return {
+                ...state,
+                updateComment: action.payload
             }
         default:
             return state

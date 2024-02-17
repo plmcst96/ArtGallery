@@ -1,6 +1,7 @@
 export const GET_COMMENTS = "GET_COMMENTS"
 export const DELETE_COMMENTS = 'DELETE_COMMENTS'
 export const ADD_COMMENT = 'ADD_COMMENT'
+export const PUT_COMMENT = "PUT_COMMENT"
 
 
 export const getComments = (idBlog, token) => {
@@ -61,7 +62,7 @@ export const postComment = (addComment, token) => {
     return async (dispatch) => {
         try {
             const res = await fetch(
-                'http://localhost:3001/comments/new',
+                'http://localhost:3001/comments',
                 {
                     method: 'POST',
                     body: JSON.stringify(addComment),
@@ -76,6 +77,38 @@ export const postComment = (addComment, token) => {
                 const data = await res.json()
                 dispatch({
                     type: ADD_COMMENT,
+                    payload: data
+                })
+
+            } else {
+                throw new Error("Errore nell'invio del commento")
+            }
+        } catch (error) {
+            console.log('ERRORE', error)
+        }
+    }
+}
+
+export const putComment = (uuid, addComment, token) => {
+    return async (dispatch) => {
+        try {
+            const res = await fetch(
+                'http://localhost:3001/comments/' + uuid,
+                {
+                    method: 'PUT',
+                    body: JSON.stringify(addComment),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            )
+
+            if (res.ok) {
+                const data = await res.json()
+                console.log(data)
+                dispatch({
+                    type: PUT_COMMENT,
                     payload: data
                 })
 

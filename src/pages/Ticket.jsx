@@ -6,6 +6,7 @@ import { Button, Typography } from "@material-tailwind/react"
 import DatePickerTicket from "../components/DatePickerTicket"
 import TimeSlotTicket from "../components/TimeSlotTicket"
 import TypeTicket from "../components/TypeTicket"
+import { getProfile } from "../redux/actions/user"
 
 const Ticket = () => {
   const singleEvent = useSelector((state) => state.event.singleEvent)
@@ -15,6 +16,7 @@ const Ticket = () => {
 
   useEffect(() => {
     dispatch(getSingleEvent(uuid, token))
+    dispatch(getProfile(token))
   }, [token, dispatch, uuid])
 
   if (!singleEvent) {

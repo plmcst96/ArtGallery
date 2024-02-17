@@ -9,6 +9,7 @@ import {
   CardHeader,
   Typography,
 } from "@material-tailwind/react"
+import { getProfile } from "../redux/actions/user"
 
 const BlogList = () => {
   const blogData = useSelector((state) => state.blog.blogs)
@@ -18,6 +19,7 @@ const BlogList = () => {
 
   useEffect(() => {
     dispatch(getAllBlog(token))
+    dispatch(getProfile(token))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

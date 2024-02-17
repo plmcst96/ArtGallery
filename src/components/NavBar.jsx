@@ -2,7 +2,6 @@ import {
   Navbar,
   Typography,
   Button,
-  IconButton,
   Collapse,
   Drawer,
   Input,
@@ -145,7 +144,7 @@ const NavBar = () => {
           >
             Contact Us
           </Typography>
-          <IconButton variant="text" color="white" onClick={closeDrawer}>
+          <Button variant="text" color="white" onClick={closeDrawer}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -160,7 +159,7 @@ const NavBar = () => {
                 d="M6 18L18 6M6 6l12 12"
               />
             </svg>
-          </IconButton>
+          </Button>
         </div>
         <div className="mb-5 px-4">
           <Typography variant="small" color="white" className="font-normal ">
@@ -284,7 +283,7 @@ const NavBar = () => {
                 </Link>
               </Button>
             </div>
-            <IconButton
+            <Button
               variant="text"
               className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
               ripple={false}
@@ -320,7 +319,7 @@ const NavBar = () => {
                   />
                 </svg>
               )}
-            </IconButton>
+            </Button>
           </div>
         </div>
         <Collapse open={openNav}>

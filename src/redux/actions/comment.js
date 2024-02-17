@@ -3,11 +3,11 @@ export const DELETE_COMMENTS = 'DELETE_COMMENTS'
 export const ADD_COMMENT = 'ADD_COMMENT'
 
 
-export const getComments = (uuid, token) => {
+export const getComments = (idBlog, token) => {
     return async (dispatch) => {
         try {
             const res = await fetch(
-                'http://localhost:3001/comments/' + uuid,
+                'http://localhost:3001/comments/blog/' + idBlog,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -17,10 +17,11 @@ export const getComments = (uuid, token) => {
 
             if (res.ok) {
                 const data = await res.json()
-                const commentsForBlog = data.filter(
-                    (comment) => comment.elementId === uuid
-                )
-                dispatch({ type: GET_COMMENTS, payload: commentsForBlog })
+                console.log(data)
+                dispatch({
+                    type: GET_COMMENTS,
+                    payload: data.content
+                })
             } else {
                 throw new Error('Errore nel recupero dei commenti')
             }
@@ -43,7 +44,10 @@ export const deleteComments = (uuid, token) => {
                 }
             )
             if (res.ok) {
-                dispatch(getComments())
+                dispatch({
+                    type: DELETE_COMMENTS,
+                    payload: uuid
+                })
             } else {
                 throw new Error('Qualquadra non cosa')
             }
@@ -53,14 +57,14 @@ export const deleteComments = (uuid, token) => {
     }
 }
 
-export const addComment = (token) => {
-    return async (dispatch, content) => {
+export const postComment = (addComment, token) => {
+    return async (dispatch) => {
         try {
             const res = await fetch(
-                'http://localhost:3001/comments',
+                'http://localhost:3001/comments/new',
                 {
                     method: 'POST',
-                    body: JSON.stringify(content),
+                    body: JSON.stringify(addComment),
                     headers: {
                         'Content-Type': 'application/json',
                         Authorization: `Bearer ${token}`,
@@ -70,8 +74,11 @@ export const addComment = (token) => {
 
             if (res.ok) {
                 const data = await res.json()
-                dispatch({ type: ADD_COMMENT, payload: data })
-                dispatch(getComments())
+                dispatch({
+                    type: ADD_COMMENT,
+                    payload: data
+                })
+
             } else {
                 throw new Error("Errore nell'invio del commento")
             }

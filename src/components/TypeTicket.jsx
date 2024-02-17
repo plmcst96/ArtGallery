@@ -16,11 +16,14 @@ const TypeTicket = ({ singleEvent }) => {
   const date = useSelector((state) => state.ticket.selectedDate)
   const hour = useSelector((state) => state.ticket.selectedTime)
   const total = useSelector((state) => state.ticket.total)
+  const profile = useSelector((state) => state.profile.profile)
+  const user = profile.uuid
+
   const event = singleEvent.uuid
   const navigate = useNavigate()
 
   const token = localStorage.getItem("token")
-  const checkoutDetails = { date, hour, typeTicket, total, event }
+  const checkoutDetails = { date, hour, typeTicket, total, event, user }
 
   const increment = (type) => {
     dispatch(

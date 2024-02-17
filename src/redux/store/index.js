@@ -6,6 +6,8 @@ import galleryReducer from "../reducers/artistWork"
 import blogReducer from "../reducers/blog"
 import ticketReducer from "../reducers/ticket"
 import checkoutReducer from "../reducers/checkout"
+import commentReducer from "../reducers/comment"
+import { profileReducer } from "../reducers/user"
 
 const bigReducer = combineReducers({
     artist: artistReducer,
@@ -14,7 +16,9 @@ const bigReducer = combineReducers({
     gallery: galleryReducer,
     blog: blogReducer,
     ticket: ticketReducer,
-    checkout: checkoutReducer
+    checkout: checkoutReducer,
+    comment: commentReducer,
+    profile: profileReducer
 })
 
 const store = configureStore({

@@ -5,6 +5,7 @@ import { getSingleBlog } from "../redux/actions/blog"
 import { Button, Typography } from "@material-tailwind/react"
 
 import ArtistHome from "./ArtistHome"
+import CommentArea from "./CommentArea"
 
 const BlogDetail = () => {
   const singleBlog = useSelector((state) => state.blog.singleBlog)
@@ -78,6 +79,9 @@ const BlogDetail = () => {
 
         <div className=" mt-10" style={{ width: "55%" }}>
           <p className="text-white">{singleBlog.description.slice(1200)}</p>
+        </div>
+        <div className=" mt-10" style={{ width: "55%" }}>
+          <CommentArea singleBlog={singleBlog.uuid} />
         </div>
       </div>
       <ArtistHome />

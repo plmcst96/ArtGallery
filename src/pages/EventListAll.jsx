@@ -60,7 +60,7 @@ const EventsListAll = () => {
                   variant="outlined"
                   className="rounded-full bottone mr-6"
                   onClick={() => {
-                    navigate("/tickets/" + event.uuid)
+                    navigate("/tickets/event/" + event.uuid)
                   }}
                 >
                   Buy Ticket

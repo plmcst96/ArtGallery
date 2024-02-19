@@ -25,7 +25,11 @@ export const updateCounter = (count) => ({
 
 export const updateTotal = (total) => {
     return {
-        type: 'UPDATE_TOTAL',
+        type: UPDATE_TOTAL,
         payload: total,
     };
+};
+
+export const resetTicketState = () => {
+    return { type: 'RESET_TICKET_STATE' };
 };

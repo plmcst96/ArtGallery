@@ -15,6 +15,8 @@ import BlogDetail from "./components/BlogDetail"
 import Ticket from "./pages/Ticket"
 import Checkout from "./pages/Checkout"
 import LoginCurator from "./pages/LoginCurator"
+import ExhibitionList from "./pages/ExhibitionList"
+import ExhibitionDetail from "./components/ExhibitionDetail"
 
 function App() {
   return (
@@ -31,8 +33,13 @@ function App() {
           <Route path="/event/detail/:uuid" element={<EventDetail />} />
           <Route path="/blog" element={<BlogList />} />
           <Route path="/blog/detail/:uuid" element={<BlogDetail />} />
-          <Route path="/tickets/:uuid" element={<Ticket />} />
+          <Route path="/tickets/event/:uuid" element={<Ticket />} />
           <Route path="/checkout/:uuid" element={<Checkout />} />
+          <Route path="/exhibitions" element={<ExhibitionList />} />
+          <Route
+            path="/exhibition/detail/:uuid"
+            element={<ExhibitionDetail />}
+          />
         </Routes>
       </main>
       <NewsLetter />

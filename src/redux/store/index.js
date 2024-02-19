@@ -8,6 +8,8 @@ import ticketReducer from "../reducers/ticket"
 import checkoutReducer from "../reducers/checkout"
 import commentReducer from "../reducers/comment"
 import { profileReducer } from "../reducers/user"
+import { exhibitionReducer } from "../reducers/exhibition"
+import { locationReducer } from "../reducers/location"
 
 const bigReducer = combineReducers({
     artist: artistReducer,
@@ -18,7 +20,9 @@ const bigReducer = combineReducers({
     ticket: ticketReducer,
     checkout: checkoutReducer,
     comment: commentReducer,
-    profile: profileReducer
+    profile: profileReducer,
+    exhibition: exhibitionReducer,
+    location: locationReducer
 })
 
 const store = configureStore({

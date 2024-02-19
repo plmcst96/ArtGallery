@@ -34,6 +34,8 @@ const ticketReducer = (state = initialState, action) => {
                 ...state,
                 total: action.payload
             }
+        case 'RESET_TICKET_STATE':
+            return initialState;
         default:
             return state;
     }

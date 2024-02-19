@@ -88,7 +88,7 @@ const EventDetail = () => {
             variant="filled"
             className="rounded-full bottone mr-6 bg-[#e71b82] hover:bg-black "
             style={{ width: "170px" }}
-            onClick={() => navigate("/tickets/" + singleEvent.uuid)}
+            onClick={() => navigate("/tickets/event/" + singleEvent.uuid)}
           >
             Buy Ticket
           </Button>

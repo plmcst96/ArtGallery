@@ -3,7 +3,11 @@
 import { Button } from "@material-tailwind/react"
 import { Typography } from "@mui/material"
 
-import { updateCounter, updateTotal } from "../redux/actions/ticket"
+import {
+  resetTicketState,
+  updateCounter,
+  updateTotal,
+} from "../redux/actions/ticket"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
 import { postCheckout } from "../redux/actions/checkout"
@@ -47,17 +51,21 @@ const TypeTicket = ({ singleEvent }) => {
 
   const calculateTotal = () => {
     const { standard, under7, over60, student } = typeTicket
-    const standardTotal = standard * singleEvent.amount
-    const under7Total = under7 * (singleEvent.amount - 15)
-    const over60Total = over60 * (singleEvent.amount - 12)
-    const studentTotal = student * (singleEvent.amount - 16.9)
+    const { amount } = singleEvent
+
+    // Calcola il prezzo totale per ogni tipo di biglietto, tenendo conto degli sconti
+    const standardTotal = standard * amount
+    const under7Total = under7 * (amount - 5)
+    const over60Total = over60 * (amount * 0.8) // Sconto del 20% per over 60
+    const studentTotal = student * (amount * 0.7) // Sconto del 30% per studenti
+
+    // Calcola il totale sommando i totali di ciascuna categoria
     return standardTotal + under7Total + over60Total + studentTotal
   }
-
   useEffect(() => {
     const newTotal = calculateTotal()
     dispatch(updateTotal(newTotal))
-  }, [typeTicket, singleEvent.amount, dispatch])
+  }, [])
 
   return (
     <div className="w-full mt-20">
@@ -93,14 +101,13 @@ const TypeTicket = ({ singleEvent }) => {
               </button>
             </div>
             <div className="text-end text-white">
-              {/* Calcola il totale per ogni tipo di biglietto */}
-              {type === "standard" && singleEvent.amount + " €"}
-              {type === "under7" &&
-                parseFloat(singleEvent.amount - 15).toFixed(2) + " €"}
+              {/* Calcola il prezzo per ogni tipo di biglietto */}
+              {type === "standard" && singleEvent.amount.toFixed(2) + " €"}
+              {type === "under7" && (singleEvent.amount - 5).toFixed(2) + " €"}
               {type === "over60" &&
-                parseFloat(singleEvent.amount - 12).toFixed(2) + " €"}
+                (singleEvent.amount * 0.8).toFixed(2) + " €"}
               {type === "student" &&
-                parseFloat(singleEvent.amount - 16.9).toFixed(2) + " €"}
+                (singleEvent.amount * 0.7).toFixed(2) + " €"}
             </div>
           </div>
           <hr className="mt-5" />
@@ -127,6 +134,7 @@ const TypeTicket = ({ singleEvent }) => {
           size="md"
           onClick={() => {
             dispatch(postCheckout(checkoutDetails, token))
+            dispatch(resetTicketState())
             navigate("/checkout/" + singleEvent.uuid)
           }}
         >

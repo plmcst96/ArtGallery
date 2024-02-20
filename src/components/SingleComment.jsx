@@ -6,7 +6,6 @@ import { useState } from "react"
 
 // eslint-disable-next-line react/prop-types
 const SingleComment = ({ comment }) => {
-  console.log(comment.uuid)
   const dispatch = useDispatch()
   const token = localStorage.getItem("token")
   const role = localStorage.getItem("role")

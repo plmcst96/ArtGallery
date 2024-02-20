@@ -10,7 +10,6 @@ const ExhibitionDetail = () => {
   const singleExhibition = useSelector(
     (state) => state.exhibition.singleExhibition
   )
-
   const locationExhibition = useSelector(
     (state) => state.location.locationExhibition
   )
@@ -76,7 +75,12 @@ const ExhibitionDetail = () => {
           <Typography variant="h5" className="text-[#e71b82] px-6 pt-6">
             Exhibition Detail
           </Typography>
+          <hr style={{ border: "1px solid #e71b82", margin: "20px" }} />
           <CardBody>
+            <p color="blue-gray" className="mb-2 grid-cols2">
+              <span style={{ fontWeight: "bold" }}>Location: </span>
+              {locationExhibition.museumName}
+            </p>
             <p color="blue-gray" className="mb-2 grid-cols2">
               <span style={{ fontWeight: "bold" }}>Start Date: </span>
               {singleExhibition.startDate}

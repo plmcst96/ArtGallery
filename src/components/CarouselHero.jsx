@@ -42,7 +42,7 @@ const CarouselHero = () => {
                 variant="outlined"
                 className="rounded-full bottone"
               >
-                <Link to="/exhibitions">Read More</Link>
+                <Link to="/exhibitions">Learn More</Link>
               </Button>
             </div>
           </div>
@@ -50,7 +50,7 @@ const CarouselHero = () => {
       </div>
 
       <div className="h-full w-full relative">
-        <img src={img2} alt="image 1" className="h-full w-full object-cover" />
+        <img src={img2} alt="image 2" className="h-full w-full object-cover" />
         <div className="absolute inset-0 grid h-full w-full place-items-left ml-10">
           <div className="w-3/4  md:w-2/4">
             <Typography
@@ -78,14 +78,14 @@ const CarouselHero = () => {
                 variant="outlined"
                 className="rounded-full bottone"
               >
-                <Link to="/exhibitions">Read More</Link>
+                <Link to="/exhibitions">Learn More</Link>
               </Button>
             </div>
           </div>
         </div>
       </div>
       <div className="h-full w-full relative">
-        <img src={testa} alt="image 1" className="h-full w-full object-cover" />
+        <img src={testa} alt="image 3" className="h-full w-full object-cover" />
         <div className="absolute inset-0 grid h-full w-full place-items-left ml-10">
           <div className="w-3/4  md:w-2/4">
             <Typography
@@ -113,7 +113,7 @@ const CarouselHero = () => {
                 variant="outlined"
                 className="rounded-full bottone"
               >
-                <Link to="/exhibitions">Read More</Link>
+                <Link to="/exhibitions">Learn More</Link>
               </Button>
             </div>
           </div>

@@ -10,6 +10,7 @@ import commentReducer from "../reducers/comment"
 import { profileReducer } from "../reducers/user"
 import { exhibitionReducer } from "../reducers/exhibition"
 import { locationReducer } from "../reducers/location"
+import favReducer from "../reducers/favourite"
 
 const bigReducer = combineReducers({
     artist: artistReducer,
@@ -22,7 +23,8 @@ const bigReducer = combineReducers({
     comment: commentReducer,
     profile: profileReducer,
     exhibition: exhibitionReducer,
-    location: locationReducer
+    location: locationReducer,
+    favourite: favReducer
 })
 
 const store = configureStore({

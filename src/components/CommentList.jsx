@@ -17,7 +17,11 @@ const CommentList = ({ singleBlog }) => {
     <div className="flex items-center flex-row justify-center gap-5 mb-20">
       <div className="w-full col-span-2">
         {comment.map((comm) => (
-          <SingleComment key={comm.uuid} comment={comm} />
+          <SingleComment
+            key={comm.uuid}
+            comment={comm}
+            singleBlog={singleBlog}
+          />
         ))}
       </div>
     </div>

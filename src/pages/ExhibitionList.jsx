@@ -27,7 +27,7 @@ const ExhibitionList = () => {
     <>
       <div
         id="art"
-        className="grid grid-cols-2 lg:grid-cols-5 md:grid-cols-3 gap-x-5 gap-y-10 mx-5 my-20"
+        className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 xxl:grid-cols-5 gap-x-5 gap-y-10 mx-5 my-20"
       >
         {exhibitionData.map((exhibition) => (
           <Card

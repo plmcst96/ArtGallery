@@ -1,6 +1,7 @@
 export const GET_GALLERY = "GET_GALLERY"
 export const LOAD_GALLERY_ID = "LOAD_GALLERY_ID"
 export const GET_SINGLE_ARTWORK = "GET_SINGLE_ARTWORK"
+export const POST_GALLERY = "POST_GALLERY"
 
 export const getGallery = (token, galleryId) => {
     return async (dispatch) => {
@@ -70,6 +71,36 @@ export const getSingleArtwork = (token, artworkId) => {
             }
         } catch (error) {
             console.log("Error", error)
+        }
+    }
+}
+
+export const postGallery = (artistUuid, token) => {
+    return async (dispatch) => {
+        try {
+            const res = await fetch(
+                'http://localhost:3001/gallery',
+                {
+                    method: 'POST',
+                    body: JSON.stringify(artistUuid),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            )
+            if (res.ok) {
+                const data = await res.json()
+                dispatch({
+                    type: POST_GALLERY,
+                    payload: data
+                })
+
+            } else {
+                throw new Error("Errore nell'invio della galleria")
+            }
+        } catch (error) {
+            console.log('ERRORE', error)
         }
     }
 }

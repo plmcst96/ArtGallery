@@ -17,6 +17,9 @@ import Checkout from "./pages/Checkout"
 import LoginCurator from "./pages/LoginCurator"
 import ExhibitionList from "./pages/ExhibitionList"
 import ExhibitionDetail from "./components/ExhibitionDetail"
+import FavouriteList from "./components/FavouriteList"
+import AdminPage from "./pages/AdminPage"
+import AdminArtist from "./pages/AdminArtist"
 
 function App() {
   return (
@@ -36,6 +39,9 @@ function App() {
           <Route path="/tickets/event/:uuid" element={<Ticket />} />
           <Route path="/checkout/:uuid" element={<Checkout />} />
           <Route path="/exhibitions" element={<ExhibitionList />} />
+          <Route path="/favourite" element={<FavouriteList />} />
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/admin/artistWork" element={<AdminArtist />} />
           <Route
             path="/exhibition/detail/:uuid"
             element={<ExhibitionDetail />}

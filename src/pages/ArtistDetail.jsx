@@ -12,6 +12,7 @@ import {
 import ArtistDetaillHist from "../components/ArtistDetailHist"
 import Gallery from "../components/Gallery"
 import { loadGalleryId } from "../redux/actions/artistWork"
+import { addFavouriteAction } from "../redux/actions/favourite"
 
 const ArtistDetail = () => {
   const singleArtist = useSelector((state) => state.artist.singleArtist)
@@ -21,6 +22,7 @@ const ArtistDetail = () => {
   const dispatch = useDispatch()
   const token = localStorage.getItem("token")
   const [showModal, setShowModal] = useState(false)
+  const role = localStorage.getItem("role")
 
   useEffect(() => {
     if (!singleArtist) {
@@ -40,6 +42,11 @@ const ArtistDetail = () => {
     )
   }
 
+  const handleAddToFavourite = () => {
+    console.log("Add to Favourite button clicked") // Verifica se il pulsante viene cliccato
+    dispatch(addFavouriteAction(singleArtist))
+  }
+
   return (
     <>
       <Card
@@ -56,32 +63,38 @@ const ArtistDetail = () => {
             marginTop: "4em",
           }}
         >
-          <Button
-            className="text-white mt-20 flex ms-20 cursor-pointer"
-            variant="text"
-          >
-            Add to Favourite
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="#e71b82"
-              className="w-6 h-6 ml-5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
-              />
-            </svg>
-          </Button>
           <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-t from-black/80 via-black/50" />
         </CardHeader>
         <CardBody className="relative py-14  md:px-12 w-full">
           <Typography variant="h2" className="mb-20 text-white uppercase">
             {singleArtist.name + " " + singleArtist.surname}
+            {role === "USER" ? (
+              <Button
+                className="text-white flex"
+                variant="text"
+                style={{ marginLeft: "190px" }}
+                onClick={handleAddToFavourite}
+              >
+                Add to Favourite
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="#e71b82"
+                  className="w-6 h-6 ml-5"
+                  onClick={handleAddToFavourite}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
+                  />
+                </svg>
+              </Button>
+            ) : null}
           </Typography>
+
           <div className="flex justify-center items-center gap-4 md:gap-20 relative h-10  ">
             <Button
               size="lg"

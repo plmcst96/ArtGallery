@@ -39,6 +39,7 @@ const LoginForm = () => {
           })
         }}
       />
+
       <Input
         label="Password"
         size="lg"
@@ -60,6 +61,7 @@ const LoginForm = () => {
           onClick={(e) => {
             e.preventDefault()
             dispatch(postLogin(login))
+
             navigate("/")
           }}
         >

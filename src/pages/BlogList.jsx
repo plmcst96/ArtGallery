@@ -33,16 +33,17 @@ const BlogList = () => {
       </h2>
       {blogData.map((blog) => (
         <div key={blog.uuid}>
-          <Card className="w-full  lg:max-w-[70rem] max-w-[35rem] flex-row bg-transparent ml-20 my-10">
+          <Card className="w-full  lg:max-w-[70rem] max-w-[27rem] md:max-w-[37rem] flex-row bg-transparent ml-20 my-10">
             <CardHeader
               shadow={false}
               floated={false}
               className="m-0 w-2/5 shrink-0 rounded-full"
+              style={{ height: "50%" }}
             >
               <img
                 src={blog.image[1]}
                 alt="card-image"
-                className="w-full h-full"
+                className="w-full h-50"
                 style={{ objectFit: "cover" }}
               />
             </CardHeader>

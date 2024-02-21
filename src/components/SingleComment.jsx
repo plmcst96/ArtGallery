@@ -1,11 +1,15 @@
 /* eslint-disable react/prop-types */
 import { Avatar, Rating } from "@material-tailwind/react"
 import { useDispatch, useSelector } from "react-redux"
-import { deleteComments, putComment } from "../redux/actions/comment"
+import {
+  deleteComments,
+  getComments,
+  putComment,
+} from "../redux/actions/comment"
 import { useState } from "react"
 
 // eslint-disable-next-line react/prop-types
-const SingleComment = ({ comment }) => {
+const SingleComment = ({ comment, singleBlog }) => {
   const dispatch = useDispatch()
   const token = localStorage.getItem("token")
   const role = localStorage.getItem("role")
@@ -33,9 +37,16 @@ const SingleComment = ({ comment }) => {
         ...comment,
         text: editedText,
         rate: editedRating,
+        comment: comment.uuid,
       }
-      dispatch(putComment(comment.uuid, updatedComment, token))
+
+      const uuidString = comment.uuid.toString()
+      console.log(uuidString)
+
+      dispatch(putComment(uuidString, updatedComment, token))
+
       setShowModal(false)
+      dispatch(getComments(singleBlog, token))
     } else {
       console.log("Il rating deve essere compreso tra 0 e 5.")
     }

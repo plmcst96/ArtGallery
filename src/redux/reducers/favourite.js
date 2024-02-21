@@ -19,7 +19,7 @@ const favReducer = (state = initialState, action) => {
             return {
 
                 ...state,
-                content: state.content.filter((data) => data._id !== action.payload)
+                content: state.content.filter((data) => data.uuid !== action.payload)
             }
 
         default:

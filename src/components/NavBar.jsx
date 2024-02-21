@@ -11,6 +11,7 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import emailjs from "@emailjs/browser"
 import { toast } from "react-toastify"
+import FavouriteIndicatore from "./FavouriteIndicator"
 
 const NavBar = () => {
   const [openNav, setOpenNav] = useState(false)
@@ -27,7 +28,7 @@ const NavBar = () => {
   }, [])
 
   const navList = (
-    <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-1 lg:flex-row lg:items-left lg:gap-6 menu">
+    <ul className="mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-1 lg:flex-row lg:items-left lg:gap-6 menu">
       <Typography
         as="li"
         variant="small"
@@ -86,7 +87,7 @@ const NavBar = () => {
         className="p-1 font-normal cursor-pointer"
         onClick={openDrawer}
       >
-        Work whit Us
+        Work
       </Typography>
       {role === "ADMIN" ? (
         <Typography
@@ -94,9 +95,8 @@ const NavBar = () => {
           variant="small"
           color="white"
           className="p-1 font-normal cursor-pointer"
-          onClick={openDrawer}
         >
-          | Personal Area
+          <Link to="/admin">| Personal Area</Link>
         </Typography>
       ) : null}
     </ul>
@@ -249,38 +249,28 @@ const NavBar = () => {
           >
             <Link to="/">WOMEN__FEELS</Link>
           </Typography>
-          <div className="mx-20 hidden lg:block">{navList}</div>
-          <div className="flex items-center">
-            <div className="flex items-center lg:mr-10">
-              {role === "USER" ? (
-                <Button
-                  variant="text"
-                  size="sm"
-                  className="hidden lg:inline-block"
-                >
-                  <Link to="/favourite">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="white"
-                      className="w-6 h-6"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
-                      />
-                    </svg>
-                  </Link>
-                </Button>
-              ) : null}
-              <Button
-                variant="text"
-                size="sm"
-                className="hidden lg:inline-block"
+          <div className="mx-20 hidden lg:block items-center">{navList}</div>
+
+          <div className=" lg:mr-10">
+            {role === "USER" ? <FavouriteIndicatore /> : null}
+            <Button variant="text" size="sm" className="hidden lg:inline-block">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="white"
+                className="w-5 h-5 hover:stroke-pink-700"
               >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                />
+              </svg>
+            </Button>
+            <Button variant="text" size="sm" className="hidden lg:inline-block">
+              <Link to="/login">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -292,71 +282,49 @@ const NavBar = () => {
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                    d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
                   />
                 </svg>
-              </Button>
-              <Button
-                variant="text"
-                size="sm"
-                className="hidden lg:inline-block"
-              >
-                <Link to="/login">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="white"
-                    className="w-5 h-5 hover:stroke-pink-700"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
-                    />
-                  </svg>
-                </Link>
-              </Button>
-            </div>
-            <Button
-              variant="text"
-              className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
-              ripple={false}
-              onClick={() => setOpenNav(!openNav)}
-            >
-              {openNav ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  className="h-6 w-6"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-              )}
+              </Link>
             </Button>
           </div>
+          <Button
+            variant="text"
+            className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
+            ripple={false}
+            onClick={() => setOpenNav(!openNav)}
+          >
+            {openNav ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                className="h-6 w-6"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            )}
+          </Button>
         </div>
         <Collapse open={openNav}>
           {navList}

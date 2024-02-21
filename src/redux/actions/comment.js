@@ -93,7 +93,7 @@ export const putComment = (uuid, addComment, token) => {
     return async (dispatch) => {
         try {
             const res = await fetch(
-                'http://localhost:3001/comments/' + uuid,
+                'http://localhost:3001/comments/md/' + uuid,
                 {
                     method: 'PUT',
                     body: JSON.stringify(addComment),

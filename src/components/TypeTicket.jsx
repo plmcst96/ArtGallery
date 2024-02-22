@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 
-import { Button } from "@material-tailwind/react"
 import { Typography } from "@mui/material"
 
 import {
@@ -12,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
 import { postCheckout } from "../redux/actions/checkout"
 import { useNavigate } from "react-router-dom"
+import StripeOption1 from "./StripeOption1"
 
 // eslint-disable-next-line react/prop-types
 const TypeTicket = ({ singleEvent }) => {
@@ -22,10 +22,8 @@ const TypeTicket = ({ singleEvent }) => {
   const total = useSelector((state) => state.ticket.total)
   const profile = useSelector((state) => state.profile.profile)
   const user = profile.uuid
-
   const event = singleEvent.uuid
   const navigate = useNavigate()
-
   const token = localStorage.getItem("token")
   const checkoutDetails = { date, hour, typeTicket, total, event, user }
 
@@ -62,6 +60,32 @@ const TypeTicket = ({ singleEvent }) => {
     // Calcola il totale sommando i totali di ciascuna categoria
     return standardTotal + under7Total + over60Total + studentTotal
   }
+
+  const handleCheckout = () => {
+    dispatch(postCheckout(checkoutDetails, token))
+    dispatch(resetTicketState())
+    navigate("/checkout/" + singleEvent.uuid)
+  }
+
+  const products = {
+    Standard: {
+      amount: singleEvent.amount,
+      quantity: typeTicket.standard,
+    },
+    Under7: {
+      amount: singleEvent.amount - 5,
+      quantity: typeTicket.under7,
+    },
+    Over60: {
+      amount: singleEvent.amount * 0.8,
+      quantity: typeTicket.over60,
+    },
+    Student: {
+      amount: singleEvent.amount * 0.7,
+      quantity: typeTicket.student,
+    },
+  }
+
   useEffect(() => {
     const newTotal = calculateTotal()
     dispatch(updateTotal(newTotal))
@@ -128,18 +152,11 @@ const TypeTicket = ({ singleEvent }) => {
         </div>
       </div>
       <div className="grid flex justify-end mt-10">
-        <Button
-          variant="filled"
-          className="bg-[#e71b82] rounded-full"
-          size="md"
-          onClick={() => {
-            dispatch(postCheckout(checkoutDetails, token))
-            dispatch(resetTicketState())
-            navigate("/checkout/" + singleEvent.uuid)
-          }}
-        >
-          Checkout
-        </Button>
+        <StripeOption1
+          products={products}
+          buttonText="Checkout"
+          handleCheckout={handleCheckout}
+        />
       </div>
     </div>
   )

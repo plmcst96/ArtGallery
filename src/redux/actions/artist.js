@@ -2,6 +2,7 @@ export const GET_ARTIST = "GET_ARTIST"
 export const SINGLE_ARTIST = "SINGLE_ARTIST"
 export const REMOVE_ARTIST = "REMOVE_ARTIST"
 export const POST_NEW_ARTIST = "POST_NEW_ARTIST"
+export const POST_PICTURE = "POST_PICTURE"
 
 export const getAlArtist = (token) => {
     return async (dispatch) => {
@@ -75,6 +76,41 @@ export const postArtist = (addArtist, token) => {
                     payload: data
                 })
                 localStorage.setItem("artistId", data.uuid)
+
+            } else {
+                throw new Error("Errore nell'invio dell'artista")
+            }
+        } catch (error) {
+            console.log('ERRORE', error)
+        }
+    }
+}
+
+export const postPicture = (uuid, token, image) => {
+    return async (dispatch) => {
+        try {
+            const formData = new FormData();
+            formData.append('image', image);
+
+            const res = await fetch(
+                'http://localhost:3001/artists/' + uuid + '/image',
+                {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json',
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            )
+
+            if (res.ok) {
+                const data = await res.json()
+                dispatch({
+                    type: POST_PICTURE,
+                    payload: data
+                })
+
 
             } else {
                 throw new Error("Errore nell'invio dell'artista")

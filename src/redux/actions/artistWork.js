@@ -2,6 +2,7 @@ export const GET_GALLERY = "GET_GALLERY"
 export const LOAD_GALLERY_ID = "LOAD_GALLERY_ID"
 export const GET_SINGLE_ARTWORK = "GET_SINGLE_ARTWORK"
 export const POST_GALLERY = "POST_GALLERY"
+export const DELETE_GALLERY = "DELETE_GALLERY"
 
 export const getGallery = (token, galleryId) => {
     return async (dispatch) => {
@@ -95,12 +96,39 @@ export const postGallery = (artistUuid, token) => {
                     type: POST_GALLERY,
                     payload: data
                 })
+                localStorage.setItem("galleryId")
 
             } else {
                 throw new Error("Errore nell'invio della galleria")
             }
         } catch (error) {
             console.log('ERRORE', error)
+        }
+    }
+}
+
+export const deleteGallery = (uuid, token) => {
+    return async (dispatch) => {
+        try {
+            const res = await fetch(
+                'http://localhost:3001/gallery/' + uuid,
+                {
+                    method: 'DELETE',
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            )
+            if (res.ok) {
+                dispatch({
+                    type: DELETE_GALLERY,
+                    payload: uuid
+                })
+            } else {
+                throw new Error('Qualquadra non cosa')
+            }
+        } catch (error) {
+            console.log('errore nella cancellazione del commento', error)
         }
     }
 }

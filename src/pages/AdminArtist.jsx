@@ -1,39 +1,30 @@
-import {
-  Button,
-  Dialog,
-  DialogBody,
-  DialogFooter,
-  DialogHeader,
-  Input,
-  Textarea,
-  Typography,
-} from "@material-tailwind/react"
+import { Typography } from "@material-tailwind/react"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import {
   getAlArtist,
   getSingleArtist,
-  postArtist,
   removeArtist,
 } from "../redux/actions/artist"
-import { getGallery, loadGalleryId } from "../redux/actions/artistWork"
+import {
+  deleteGallery,
+  getGallery,
+  loadGalleryId,
+  postGallery,
+} from "../redux/actions/artistWork"
+import { DialogArtist } from "../components/DialogArtist"
 
 const AdminArtist = () => {
   const artistData = useSelector((state) => state.artist.artists)
   const dispatch = useDispatch()
   const token = localStorage.getItem("token")
-
   const galleryId = useSelector((state) => state.gallery.galleryId)
   const galleryData = useSelector((state) => state.gallery.gallery)
   const [open, setOpen] = useState(false)
 
-  const [addArtist, setAddArtist] = useState({
-    name: "",
-    surname: "",
-    historyArtist: "",
-    birthDate: "",
-    dieDate: "",
-    quote: "",
+  // eslint-disable-next-line no-unused-vars
+  const [gallery, setGallery] = useState({
+    artistUuid: "",
   })
 
   const handleOpen = () => setOpen(!open)
@@ -45,6 +36,19 @@ const AdminArtist = () => {
   const handleArtistClick = async (artistId) => {
     dispatch(getSingleArtist(artistId, token))
     await dispatch(loadGalleryId(token, artistId))
+    const galleryData = {
+      artistUuid: artistId,
+    }
+    dispatch(postGallery(galleryData, token))
+  }
+
+  const handleDeleteArt = async (artistId) => {
+    try {
+      dispatch(deleteGallery(galleryId.uuid, token))
+      await dispatch(removeArtist(artistId, token))
+    } catch (error) {
+      console.error("Error deleting artist and associated gallery:", error)
+    }
   }
 
   useEffect(() => {
@@ -53,23 +57,9 @@ const AdminArtist = () => {
     }
   }, [dispatch, token, galleryId])
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    await dispatch(postArtist(addArtist, token))
-    setAddArtist({
-      name: "",
-      surname: "",
-      historyArtist: "",
-      birthDate: "",
-      dieDate: "",
-      quote: "",
-    })
-    await dispatch(getAlArtist(token))
-  }
-
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-2 mt-10">
-      <div>
+    <div className="grid grid-cols-1 lg:grid-cols-5 mt-10">
+      <div className="col-span-3">
         <Typography
           variant="h3"
           className="text-[#e71b82] mt-20 mx-10 flex items-center"
@@ -91,153 +81,9 @@ const AdminArtist = () => {
             />
           </svg>
         </Typography>
-        <Dialog open={open} handler={handleOpen} className="overflow-y-auto">
-          <DialogHeader className="text-[#e71b82] ml-20 mt-5">
-            ADD NEW ARTIST__
-          </DialogHeader>
-          <DialogBody className="flex justify-center">
-            <form
-              className="mt-8 mb-2 w-80 max-w-screen-sm sm:w-96 "
-              onSubmit={handleSubmit}
-            >
-              <div className="mb-1 flex flex-col gap-6 justify-center ">
-                <Typography variant="h6" color="blue-gray" className="-mb-3">
-                  Artist Name
-                </Typography>
-                <Input
-                  size="md"
-                  value={addArtist.name}
-                  placeholder="name"
-                  className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-                  labelProps={{
-                    className: "before:content-none after:content-none",
-                  }}
-                  onChange={(e) =>
-                    setAddArtist({
-                      ...addArtist,
-                      name: e.target.value,
-                    })
-                  }
-                />
-                <Typography variant="h6" color="blue-gray" className="-mb-3">
-                  Artist Surname
-                </Typography>
-                <Input
-                  type="text"
-                  size="md"
-                  value={addArtist.surname}
-                  placeholder="surname"
-                  className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-                  labelProps={{
-                    className: "before:content-none after:content-none",
-                  }}
-                  onChange={(e) => {
-                    setAddArtist({
-                      ...addArtist,
-                      surname: e.target.value,
-                    })
-                  }}
-                />
-                <Typography variant="h6" color="blue-gray" className="-mb-3">
-                  History Artist
-                </Typography>
-                <Textarea
-                  type="text"
-                  size="md"
-                  value={addArtist.historyArtist}
-                  placeholder="history"
-                  className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-                  labelProps={{
-                    className: "before:content-none after:content-none",
-                  }}
-                  onChange={(e) => {
-                    setAddArtist({
-                      ...addArtist,
-                      historyArtist: e.target.value,
-                    })
-                  }}
-                />
-                <Typography variant="h6" color="blue-gray" className="-mb-3">
-                  Birth
-                </Typography>
-                <Input
-                  type="text"
-                  size="md"
-                  value={addArtist.birthDate}
-                  placeholder="birth"
-                  className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-                  labelProps={{
-                    className: "before:content-none after:content-none",
-                  }}
-                  onChange={(e) => {
-                    setAddArtist({
-                      ...addArtist,
-                      birthDate: e.target.value,
-                    })
-                  }}
-                />
-                <Typography variant="h6" color="blue-gray" className="-mb-3">
-                  Death
-                </Typography>
-                <Input
-                  type="text"
-                  size="md"
-                  value={addArtist.dieDate}
-                  placeholder="die date"
-                  className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-                  labelProps={{
-                    className: "before:content-none after:content-none",
-                  }}
-                  onChange={(e) => {
-                    setAddArtist({
-                      ...addArtist,
-                      dieDate: e.target.value,
-                    })
-                  }}
-                />
-                <Typography variant="h6" color="blue-gray" className="-mb-3">
-                  Quote Artist
-                </Typography>
-                <Input
-                  type="text"
-                  size="md"
-                  value={addArtist.quote}
-                  placeholder="quote"
-                  className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-                  labelProps={{
-                    className: "before:content-none after:content-none",
-                  }}
-                  onChange={(e) => {
-                    setAddArtist({
-                      ...addArtist,
-                      quote: e.target.value,
-                    })
-                  }}
-                />
-              </div>
-              <DialogFooter>
-                <Button
-                  variant="text"
-                  color="#e71b82"
-                  onClick={handleOpen}
-                  className="mr-1"
-                >
-                  <span>Cancel</span>
-                </Button>
-                <Button
-                  type="submit"
-                  variant="text"
-                  color="white"
-                  className="bg-[#e71b82] rounded-full"
-                  onClick={handleOpen}
-                >
-                  <span>Confirm</span>
-                </Button>
-              </DialogFooter>
-            </form>
-          </DialogBody>
-        </Dialog>
-        <div className="grid md:grid-cols-2 grid-cols-1">
+        <DialogArtist open={open} handler={handleOpen} />
+
+        <div className="grid xl:grid-cols-2 grid-cols-1 col-span-3">
           {artistData.map((artist) => (
             <div
               key={artist.uuid}
@@ -256,6 +102,11 @@ const AdminArtist = () => {
                       fontWeight: "bold",
                       cursor: "pointer",
                     }}
+                    onChange={() =>
+                      setGallery({
+                        artistUuid: artist.uuid,
+                      })
+                    }
                     onClick={() => {
                       handleArtistClick(artist.uuid)
                     }}
@@ -291,7 +142,7 @@ const AdminArtist = () => {
                     strokeWidth={1.5}
                     stroke="white"
                     className="w-6 h-6"
-                    onClick={() => dispatch(removeArtist(artist.uuid, token))}
+                    onClick={() => handleDeleteArt(artist.uuid)}
                   >
                     <path
                       strokeLinecap="round"
@@ -306,8 +157,8 @@ const AdminArtist = () => {
         </div>
       </div>
       <div
-        className="bg-[#EFEFEF] m-10 mt-20 rounded-xl pb-10"
-        style={{ width: "60%" }}
+        className="bg-[#EFEFEF] m-5 mt-20 rounded-xl pb-10 col-span-2"
+        style={{ width: "80%" }}
       >
         <Typography variant="h3" className="text-[#e71b82] mt-10 mx-10">
           WORK__

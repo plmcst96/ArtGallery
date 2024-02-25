@@ -36,7 +36,7 @@ const NewsLetter = () => {
             }
           />
           <Button fullWidth className="bg-[#e71b82] rounded-full mt-10">
-            Log In
+            Send
           </Button>
         </form>
       </div>

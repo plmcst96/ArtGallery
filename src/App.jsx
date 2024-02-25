@@ -20,6 +20,9 @@ import ExhibitionDetail from "./components/ExhibitionDetail"
 import FavouriteList from "./components/FavouriteList"
 import AdminPage from "./pages/AdminPage"
 import AdminArtist from "./pages/AdminArtist"
+import { AdminBlog } from "./components/AdminBlog"
+import { Profile } from "./pages/Profile"
+import { CuratorRequest } from "./components/CuratorRequest"
 
 function App() {
   return (
@@ -42,6 +45,9 @@ function App() {
           <Route path="/favourite" element={<FavouriteList />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/admin/artistWork" element={<AdminArtist />} />
+          <Route path="/admin/blog" element={<AdminBlog />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/curator" element={<CuratorRequest />} />
           <Route
             path="/exhibition/detail/:uuid"
             element={<ExhibitionDetail />}

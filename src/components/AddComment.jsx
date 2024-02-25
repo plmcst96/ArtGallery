@@ -13,13 +13,14 @@ const AddComment = ({ singleBlog }) => {
     rate: "",
     text: "",
     blog: singleBlog,
-    user: user.uuid,
+    user: user?.uuid,
   })
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
-    await dispatch(postComment(addComment, token))
+    if (user.uuid) {
+      await dispatch(postComment(addComment, token))
+    }
 
     setAddComment({
       rate: "",

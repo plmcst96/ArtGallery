@@ -6,6 +6,7 @@ import {
   Drawer,
   Input,
   Textarea,
+  Avatar,
 } from "@material-tailwind/react"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
@@ -70,16 +71,7 @@ const NavBar = () => {
           Event
         </Link>
       </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="white"
-        className="p-1 font-normal cursor-pointer"
-      >
-        <Link to="/tickets" className="flex items-center">
-          Ticket
-        </Link>
-      </Typography>
+
       <Typography
         as="li"
         variant="small"
@@ -96,7 +88,18 @@ const NavBar = () => {
           color="white"
           className="p-1 font-normal cursor-pointer"
         >
-          <Link to="/admin">| Personal Area</Link>
+          <Link to="/admin">| Admin</Link>
+        </Typography>
+      ) : null}
+
+      {role === "CURATOR" ? (
+        <Typography
+          as="li"
+          variant="small"
+          color="white"
+          className="p-1 font-normal cursor-pointer"
+        >
+          <Link to="/curator">| Curator</Link>
         </Typography>
       ) : null}
     </ul>
@@ -287,6 +290,13 @@ const NavBar = () => {
                 </svg>
               </Link>
             </Button>
+            <Link to="/profile">
+              <Avatar
+                src="https://docs.material-tailwind.com/img/face-2.jpg"
+                alt="avatar"
+                className="w-8 h-8 md:hidden lg:inline-flex"
+              />
+            </Link>
           </div>
           <Button
             variant="text"
@@ -328,12 +338,30 @@ const NavBar = () => {
         </div>
         <Collapse open={openNav}>
           {navList}
-          <div className="flex items-center gap-x-1">
-            <Button fullWidth variant="text" size="sm" className="">
+          <div className="flex items-center gap-x-1 mt-5">
+            <Button
+              fullWidth
+              variant="text"
+              size="sm"
+              className="text-[#e71b82]"
+            >
               <span>Search</span>
             </Button>
-            <Button fullWidth variant="gradient" size="sm" className="">
-              <span>Log in</span>
+            <Button
+              fullWidth
+              variant="text"
+              size="sm"
+              className="text-[#e71b82]"
+            >
+              <Link to="/login">Log in</Link>
+            </Button>
+            <Button
+              fullWidth
+              variant="text"
+              size="sm"
+              className="text-[#e71b82]"
+            >
+              <Link to="/profile">Profile</Link>
             </Button>
           </div>
         </Collapse>

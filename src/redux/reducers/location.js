@@ -1,8 +1,10 @@
-import { GET_LOCATION, GET_LOCATION_EXHIBITION } from "../actions/location"
+import { DELETE_LOCATION_USER, GET_LOCATION, GET_LOCATION_EXHIBITION, GET_LOCATION_USER, POST_LOCATION } from "../actions/location"
 
 const initialState = {
     locationExhibition: null,
-    locations: []
+    locations: [],
+    addLocation: null,
+    locationUser: null
 }
 
 export const locationReducer = (state = initialState, action) => {
@@ -16,6 +18,18 @@ export const locationReducer = (state = initialState, action) => {
             return {
                 ...state,
                 locations: action.payload
+            }
+        case POST_LOCATION:
+            return {
+                addLocation: action.payload
+            }
+        case GET_LOCATION_USER:
+            return {
+                locationUser: action.payload
+            }
+        case DELETE_LOCATION_USER:
+            return {
+                locationUser: action.payload
             }
         default:
             return state

@@ -8,11 +8,13 @@ import {
 } from "../redux/actions/artist"
 import {
   deleteGallery,
+  deleteWork,
   getGallery,
   loadGalleryId,
   postGallery,
 } from "../redux/actions/artistWork"
 import { DialogArtist } from "../components/DialogArtist"
+import { DialogWork } from "../components/DialogWork"
 
 const AdminArtist = () => {
   const artistData = useSelector((state) => state.artist.artists)
@@ -21,6 +23,7 @@ const AdminArtist = () => {
   const galleryId = useSelector((state) => state.gallery.galleryId)
   const galleryData = useSelector((state) => state.gallery.gallery)
   const [open, setOpen] = useState(false)
+  const [openWork, setOpenWork] = useState(false)
 
   // eslint-disable-next-line no-unused-vars
   const [gallery, setGallery] = useState({
@@ -28,6 +31,7 @@ const AdminArtist = () => {
   })
 
   const handleOpen = () => setOpen(!open)
+  const handleOpenWork = () => setOpenWork(!openWork)
 
   useEffect(() => {
     dispatch(getAlArtist(token))
@@ -35,11 +39,13 @@ const AdminArtist = () => {
 
   const handleArtistClick = async (artistId) => {
     dispatch(getSingleArtist(artistId, token))
-    await dispatch(loadGalleryId(token, artistId))
     const galleryData = {
       artistUuid: artistId,
     }
-    dispatch(postGallery(galleryData, token))
+    if (!galleryId > 0) {
+      dispatch(postGallery(galleryData, token))
+    }
+    await dispatch(loadGalleryId(token, artistId))
   }
 
   const handleDeleteArt = async (artistId) => {
@@ -56,6 +62,18 @@ const AdminArtist = () => {
       dispatch(getGallery(token, galleryId))
     }
   }, [dispatch, token, galleryId])
+
+  const handleDeleteWork = async (index) => {
+    try {
+      await dispatch(deleteWork(index, token))
+      // Dopo aver eliminato l'opera, aggiorna la lista delle opere richiedendo nuovamente i dati
+      if (galleryId) {
+        dispatch(getGallery(token, galleryId))
+      }
+    } catch (error) {
+      console.error("Error deleting work:", error)
+    }
+  }
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-5 mt-10">
@@ -162,7 +180,23 @@ const AdminArtist = () => {
       >
         <Typography variant="h3" className="text-[#e71b82] mt-10 mx-10">
           WORK__
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="#e71b82"
+            className="w-8 h-8 ml-10"
+            onClick={handleOpenWork}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+            />
+          </svg>
         </Typography>{" "}
+        <DialogWork open={openWork} handler={handleOpenWork} />
         {galleryData.map((gallery) => (
           <div
             key={gallery[1].uuid}
@@ -207,6 +241,7 @@ const AdminArtist = () => {
                   strokeWidth={1.5}
                   stroke="black"
                   className="w-6 h-6"
+                  onClick={() => handleDeleteWork(gallery[1].uuid)}
                 >
                   <path
                     strokeLinecap="round"

@@ -2,7 +2,9 @@ import { Button } from "@material-tailwind/react"
 import { loadStripe } from "@stripe/stripe-js"
 
 // eslint-disable-next-line no-undef
-const stripePromise = loadStripe(process.env.VITE_REACT_APP_MY_SECRET_KEY)
+const stripePromise = loadStripe(
+  "pk_test_51OjsnnGwPgiF6GXhj0Oan9F9QpnJAlsYsCPTXRvYhVJGH79wr7h8jPrZ2bwbHJ0QxicoYBa41BaW5J5L77hNEqD900d3HQoy4X"
+)
 
 // eslint-disable-next-line react/prop-types
 const StripeOption1 = ({ products, buttonText, handleCheckout }) => {

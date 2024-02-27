@@ -12,7 +12,10 @@ const initialState = {
     total: 0
 };
 
+
+
 const ticketReducer = (state = initialState, action) => {
+
     switch (action.type) {
         case SET_DATE:
             return {
@@ -27,8 +30,11 @@ const ticketReducer = (state = initialState, action) => {
         case UPDATE_COUNTER:
             return {
                 ...state,
-                selectedType: action.payload
-            }
+                selectedType: {
+                    ...state.selectedType,
+                    [action.payload.type]: action.payload.count
+                }
+            };
         case UPDATE_TOTAL:
             return {
                 ...state,

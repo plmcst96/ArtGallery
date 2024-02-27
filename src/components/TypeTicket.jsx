@@ -1,95 +1,113 @@
 /* eslint-disable react/prop-types */
-
 import { Typography } from "@mui/material"
-
-import {
-  resetTicketState,
-  updateCounter,
-  updateTotal,
-} from "../redux/actions/ticket"
+import { updateCounter, updateTotal } from "../redux/actions/ticket"
 import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from "react"
-import { postCheckout } from "../redux/actions/checkout"
-import { useNavigate } from "react-router-dom"
-import StripeOption1 from "./StripeOption1"
+import { useEffect, useState } from "react"
+
+import dayjs from "dayjs"
+import { loadStripe } from "@stripe/stripe-js"
+import WrappedCheckoutForm from "./WrappedForm"
 
 // eslint-disable-next-line react/prop-types
 const TypeTicket = ({ singleEvent }) => {
   const dispatch = useDispatch()
   const typeTicket = useSelector((state) => state.ticket.selectedType)
-  const date = useSelector((state) => state.ticket.selectedDate)
   const hour = useSelector((state) => state.ticket.selectedTime)
-  const total = useSelector((state) => state.ticket.total)
-  const profile = useSelector((state) => state.profile.profile)
-  const user = profile.uuid
-  const event = singleEvent.uuid
-  const navigate = useNavigate()
+  const date = useSelector((state) => state.ticket.selectedDate)
   const token = localStorage.getItem("token")
-  const checkoutDetails = { date, hour, typeTicket, total, event, user }
-
+  const [checkoutUrl, setCheckoutUrl] = useState("")
+  const [clientSecret, setClientSecret] = useState("")
+  const stripePromise = loadStripe(
+    "pk_test_51OjsnnGwPgiF6GXhj0Oan9F9QpnJAlsYsCPTXRvYhVJGH79wr7h8jPrZ2bwbHJ0QxicoYBa41BaW5J5L77hNEqD900d3HQoy4X"
+  )
   const increment = (type) => {
-    dispatch(
-      updateCounter({
-        ...typeTicket,
-        [type]: typeTicket[type] + 1,
-      })
-    )
+    dispatch(updateCounter(type, typeTicket[type] + 1))
   }
 
   const decrement = (type) => {
     if (typeTicket[type] > 0) {
-      dispatch(
-        updateCounter({
-          ...typeTicket,
-          [type]: typeTicket[type] - 1,
-        })
+      dispatch(updateCounter(type, typeTicket[type] - 1))
+    }
+  }
+  console.log(typeTicket)
+  const calculateTotal = () => {
+    if (!typeTicket) {
+      return 0 // o un valore di default appropriato
+    }
+    const { standard, under7, over60, student } = typeTicket
+    const { amount } = singleEvent
+    const standardTotal = standard * amount
+    const under7Total = under7 * (amount - 5)
+    const over60Total = over60 * (amount * 0.8)
+    const studentTotal = student * (amount * 0.7)
+    return standardTotal + under7Total + over60Total + studentTotal
+  }
+
+  const checkoutDetails = {
+    hour: hour,
+    title: singleEvent?.title,
+    date: dayjs(date).format("YYYY-MM-DD"),
+    image: singleEvent?.image[0],
+    amount: singleEvent?.amount,
+    maxNum: 10,
+    typeTicket: Object.entries(typeTicket).map(([type, quantity]) => ({
+      typeTicket: type,
+      quantity: quantity,
+    })),
+  }
+
+  const handleCheckout = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:3001/create-checkout-session",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ checkoutDetails }), // Assicurati che checkoutDetails sia definito correttamente
+        }
+      )
+      if (!response.ok) {
+        throw new Error("Errore durante la richiesta POST")
+      }
+
+      const data = await response.json()
+      console.log("Dati di risposta:", data)
+      setClientSecret(data.clientSecret)
+      setCheckoutUrl(data.checkoutUrl)
+
+      redirectToCheckout()
+    } catch (error) {
+      console.error("Errore durante la gestione della richiesta POST:", error)
+    }
+  }
+
+  const redirectToCheckout = async () => {
+    try {
+      const stripe = await stripePromise
+      const { error } = await stripe.redirectToCheckout({
+        sessionId: clientSecret, // Assicurati di avere il clientSecret correttamente impostato
+      })
+
+      if (error) {
+        throw new Error(
+          "Errore durante il reindirizzamento al checkout:",
+          error
+        )
+      }
+    } catch (error) {
+      console.error(
+        "Errore durante la gestione del reindirizzamento al checkout:",
+        error
       )
     }
   }
 
-  const calculateTotal = () => {
-    const { standard, under7, over60, student } = typeTicket
-    const { amount } = singleEvent
-
-    // Calcola il prezzo totale per ogni tipo di biglietto, tenendo conto degli sconti
-    const standardTotal = standard * amount
-    const under7Total = under7 * (amount - 5)
-    const over60Total = over60 * (amount * 0.8) // Sconto del 20% per over 60
-    const studentTotal = student * (amount * 0.7) // Sconto del 30% per studenti
-
-    // Calcola il totale sommando i totali di ciascuna categoria
-    return standardTotal + under7Total + over60Total + studentTotal
-  }
-
-  const handleCheckout = () => {
-    dispatch(postCheckout(checkoutDetails, token))
-    dispatch(resetTicketState())
-    navigate("/checkout/" + singleEvent.uuid)
-  }
-
-  const products = {
-    Standard: {
-      amount: singleEvent.amount,
-      quantity: typeTicket.standard,
-    },
-    Under7: {
-      amount: singleEvent.amount - 5,
-      quantity: typeTicket.under7,
-    },
-    Over60: {
-      amount: singleEvent.amount * 0.8,
-      quantity: typeTicket.over60,
-    },
-    Student: {
-      amount: singleEvent.amount * 0.7,
-      quantity: typeTicket.student,
-    },
-  }
-
   useEffect(() => {
-    const newTotal = calculateTotal()
-    dispatch(updateTotal(newTotal))
-  }, [])
+    dispatch(updateTotal(calculateTotal()))
+  }, [typeTicket])
 
   return (
     <div className="w-full mt-20">
@@ -124,15 +142,18 @@ const TypeTicket = ({ singleEvent }) => {
                 +
               </button>
             </div>
-            <div className="text-end text-white">
-              {/* Calcola il prezzo per ogni tipo di biglietto */}
-              {type === "standard" && singleEvent.amount.toFixed(2) + " €"}
-              {type === "under7" && (singleEvent.amount - 5).toFixed(2) + " €"}
-              {type === "over60" &&
-                (singleEvent.amount * 0.8).toFixed(2) + " €"}
-              {type === "student" &&
-                (singleEvent.amount * 0.7).toFixed(2) + " €"}
-            </div>
+            {singleEvent && singleEvent.amount && (
+              <div className="text-end text-white">
+                {/* Calcola il prezzo per ogni tipo di biglietto */}
+                {type === "standard" && singleEvent.amount.toFixed(2) + " €"}
+                {type === "under7" &&
+                  (singleEvent.amount - 5).toFixed(2) + " €"}
+                {type === "over60" &&
+                  (singleEvent.amount * 0.8).toFixed(2) + " €"}
+                {type === "student" &&
+                  (singleEvent.amount * 0.7).toFixed(2) + " €"}
+              </div>
+            )}
           </div>
           <hr className="mt-5" />
         </div>
@@ -151,11 +172,10 @@ const TypeTicket = ({ singleEvent }) => {
           </Typography>
         </div>
       </div>
-      <div className="grid flex justify-end mt-10">
-        <StripeOption1
-          products={products}
-          buttonText="Checkout"
+      <div className="mt-10">
+        <WrappedCheckoutForm
           handleCheckout={handleCheckout}
+          calculateTotal={calculateTotal}
         />
       </div>
     </div>

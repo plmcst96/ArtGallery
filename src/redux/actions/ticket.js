@@ -18,9 +18,9 @@ export const setTimeTicket = (time) => {
     };
 };
 
-export const updateCounter = (count) => ({
+export const updateCounter = (type, count) => ({
     type: UPDATE_COUNTER,
-    payload: count
+    payload: { type, count }
 });
 
 export const updateTotal = (total) => {

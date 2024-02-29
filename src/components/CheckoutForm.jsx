@@ -1,12 +1,14 @@
 import { Button } from "@material-tailwind/react"
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js"
 import { useState } from "react"
+import { useSelector } from "react-redux"
 
 // eslint-disable-next-line react/prop-types
 const CheckoutForm = ({ handleCheckout, calculateTotal }) => {
   const stripe = useStripe()
   const elements = useElements()
   const [error, setError] = useState(null)
+  const customerId = useSelector((state) => state.profile.profile)
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -18,6 +20,9 @@ const CheckoutForm = ({ handleCheckout, calculateTotal }) => {
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card: elements.getElement(CardElement),
+
+      // Include the customer ID here
+      customer: customerId,
     })
 
     if (error) {

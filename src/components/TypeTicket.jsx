@@ -15,6 +15,8 @@ const TypeTicket = ({ singleEvent }) => {
   const hour = useSelector((state) => state.ticket.selectedTime)
   const date = useSelector((state) => state.ticket.selectedDate)
   const token = localStorage.getItem("token")
+  const customerId = useSelector((state) => state.profile.profile)
+  // eslint-disable-next-line no-unused-vars
   const [checkoutUrl, setCheckoutUrl] = useState("")
   const [clientSecret, setClientSecret] = useState("")
   const stripePromise = loadStripe(
@@ -29,7 +31,7 @@ const TypeTicket = ({ singleEvent }) => {
       dispatch(updateCounter(type, typeTicket[type] - 1))
     }
   }
-  console.log(typeTicket)
+
   const calculateTotal = () => {
     if (!typeTicket) {
       return 0 // o un valore di default appropriato
@@ -43,20 +45,11 @@ const TypeTicket = ({ singleEvent }) => {
     return standardTotal + under7Total + over60Total + studentTotal
   }
 
-  const checkoutDetails = {
-    hour: hour,
-    title: singleEvent?.title,
-    date: dayjs(date).format("YYYY-MM-DD"),
-    image: singleEvent?.image[0],
-    amount: singleEvent?.amount,
-    maxNum: 10,
-    typeTicket: Object.entries(typeTicket).map(([type, quantity]) => ({
-      typeTicket: type,
-      quantity: quantity,
-    })),
-  }
-
   const handleCheckout = async () => {
+    if (!hour || !date || !singleEvent || !typeTicket) {
+      console.error("Dati incompleti per effettuare il checkout")
+      return
+    }
     try {
       const response = await fetch(
         "http://localhost:3001/create-checkout-session",
@@ -66,7 +59,17 @@ const TypeTicket = ({ singleEvent }) => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({ checkoutDetails }), // Assicurati che checkoutDetails sia definito correttamente
+          body: JSON.stringify({
+            hour: hour,
+            title: singleEvent?.title,
+            date: dayjs(date).format("YYYY-MM-DD"),
+            image: singleEvent?.image[0],
+            amount: singleEvent?.amount,
+            maxNum: 10,
+            typeTicket: typeTicket,
+            name: customerId.name,
+            email: customerId.email,
+          }), // Assicurati che checkoutDetails sia definito correttamente
         }
       )
       if (!response.ok) {
@@ -74,10 +77,10 @@ const TypeTicket = ({ singleEvent }) => {
       }
 
       const data = await response.json()
+      const { clientSecret: secretFromBackend } = data
       console.log("Dati di risposta:", data)
-      setClientSecret(data.clientSecret)
+      setClientSecret(secretFromBackend)
       setCheckoutUrl(data.checkoutUrl)
-
       redirectToCheckout()
     } catch (error) {
       console.error("Errore durante la gestione della richiesta POST:", error)
@@ -87,15 +90,22 @@ const TypeTicket = ({ singleEvent }) => {
   const redirectToCheckout = async () => {
     try {
       const stripe = await stripePromise
-      const { error } = await stripe.redirectToCheckout({
-        sessionId: clientSecret, // Assicurati di avere il clientSecret correttamente impostato
-      })
+      if (clientSecret) {
+        const { error } = await stripe.redirectToCheckout({
+          sessionId: clientSecret,
+        })
 
-      if (error) {
-        throw new Error(
-          "Errore durante il reindirizzamento al checkout:",
-          error
+        if (error) {
+          throw new Error(
+            "Errore durante il reindirizzamento al checkout:",
+            error
+          )
+        }
+      } else {
+        console.error(
+          "Il clientSecret è null. Impossibile procedere con il checkout."
         )
+        // Gestisci il caso in cui il clientSecret sia null
       }
     } catch (error) {
       console.error(

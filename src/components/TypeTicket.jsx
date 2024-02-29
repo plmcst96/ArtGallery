@@ -1,12 +1,15 @@
 /* eslint-disable react/prop-types */
 import { Typography } from "@mui/material"
-import { updateCounter, updateTotal } from "../redux/actions/ticket"
+import {
+  postAccount,
+  postAccountSession,
+  updateCounter,
+  updateTotal,
+} from "../redux/actions/ticket"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from "react"
-
 import dayjs from "dayjs"
 import { loadStripe } from "@stripe/stripe-js"
-import WrappedCheckoutForm from "./WrappedForm"
 
 // eslint-disable-next-line react/prop-types
 const TypeTicket = ({ singleEvent }) => {
@@ -45,14 +48,19 @@ const TypeTicket = ({ singleEvent }) => {
     return standardTotal + under7Total + over60Total + studentTotal
   }
 
-  const handleCheckout = async () => {
+  useEffect(() => {
+    dispatch(postAccount(customerId.email, token))
+  }, [])
+
+  const handleCheckout = async (e) => {
+    e.preventDefault()
     if (!hour || !date || !singleEvent || !typeTicket) {
       console.error("Dati incompleti per effettuare il checkout")
       return
     }
     try {
       const response = await fetch(
-        "http://localhost:3001/create-checkout-session",
+        "http://localhost:3001/v1/create-checkout-session",
         {
           method: "POST",
           headers: {
@@ -183,10 +191,9 @@ const TypeTicket = ({ singleEvent }) => {
         </div>
       </div>
       <div className="mt-10">
-        <WrappedCheckoutForm
-          handleCheckout={handleCheckout}
-          calculateTotal={calculateTotal}
-        />
+        <form onSubmit={handleCheckout}>
+          <button type="submit">Checkout</button>
+        </form>
       </div>
     </div>
   )

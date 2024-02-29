@@ -36,7 +36,7 @@ export const resetTicketState = () => {
     return { type: 'RESET_TICKET_STATE' };
 };
 
-export const postAccountSession = (account, token) => {
+export const postAccountSession = (token) => {
     return async (dispatch) => {
         try {
             const res = await fetch(
@@ -48,7 +48,7 @@ export const postAccountSession = (account, token) => {
                         'Content-Type': 'application/json',
                         Authorization: `Bearer ${token}`,
                     },
-                    body: JSON.stringify(account)
+
                 }
             )
 

@@ -19,6 +19,7 @@ const TypeTicket = ({ singleEvent }) => {
   const date = useSelector((state) => state.ticket.selectedDate)
   const token = localStorage.getItem("token")
   const customerId = useSelector((state) => state.profile.profile)
+  const client = useSelector((state) => state.ticket.addAccountSession)
   // eslint-disable-next-line no-unused-vars
   const [checkoutUrl, setCheckoutUrl] = useState("")
   const [clientSecret, setClientSecret] = useState("")
@@ -49,7 +50,7 @@ const TypeTicket = ({ singleEvent }) => {
   }
 
   useEffect(() => {
-    dispatch(postAccount(customerId.email, token))
+    dispatch(postAccountSession(token))
   }, [])
 
   const handleCheckout = async (e) => {
@@ -85,9 +86,9 @@ const TypeTicket = ({ singleEvent }) => {
       }
 
       const data = await response.json()
-      const { clientSecret: secretFromBackend } = data
+
       console.log("Dati di risposta:", data)
-      setClientSecret(secretFromBackend)
+      setClientSecret(client.clientSecret)
       setCheckoutUrl(data.checkoutUrl)
       redirectToCheckout()
     } catch (error) {
@@ -100,7 +101,7 @@ const TypeTicket = ({ singleEvent }) => {
       const stripe = await stripePromise
       if (clientSecret) {
         const { error } = await stripe.redirectToCheckout({
-          sessionId: clientSecret,
+          sessionId: client.clientSecret,
         })
 
         if (error) {

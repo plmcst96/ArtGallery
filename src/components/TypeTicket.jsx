@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Typography } from "@mui/material"
 import {
-  postAccount,
   postAccountSession,
   updateCounter,
   updateTotal,

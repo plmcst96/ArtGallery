@@ -13,7 +13,7 @@ import EventDetail from "./components/EventDetail"
 import BlogList from "./pages/BlogList"
 import BlogDetail from "./components/BlogDetail"
 import Ticket from "./pages/Ticket"
-import Checkout from "./pages/Checkout"
+
 import LoginCurator from "./pages/LoginCurator"
 import ExhibitionList from "./pages/ExhibitionList"
 import ExhibitionDetail from "./components/ExhibitionDetail"
@@ -23,6 +23,7 @@ import AdminArtist from "./pages/AdminArtist"
 import { AdminBlog } from "./components/AdminBlog"
 import { Profile } from "./pages/Profile"
 import { CuratorRequest } from "./components/CuratorRequest"
+import { SuccesPage } from "./components/SuccesPage"
 
 function App() {
   return (
@@ -40,7 +41,7 @@ function App() {
           <Route path="/blog" element={<BlogList />} />
           <Route path="/blog/detail/:uuid" element={<BlogDetail />} />
           <Route path="/tickets/event/:uuid" element={<Ticket />} />
-          <Route path="/checkout/:uuid" element={<Checkout />} />
+          <Route path="/success" element={<SuccesPage />} />
           <Route path="/exhibitions" element={<ExhibitionList />} />
           <Route path="/favourite" element={<FavouriteList />} />
           <Route path="/admin" element={<AdminPage />} />

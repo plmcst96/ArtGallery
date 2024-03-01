@@ -5,6 +5,7 @@ import { getSingleEvent } from "../redux/actions/event"
 import { Button, Typography } from "@material-tailwind/react"
 import ArtistHome from "./ArtistHome"
 import { addFavouriteAction } from "../redux/actions/favourite"
+import dayjs from "dayjs"
 
 const EventDetail = () => {
   const singleEvent = useSelector((state) => state.event.singleEvent)
@@ -77,7 +78,7 @@ const EventDetail = () => {
             color="white"
             style={{ marginTop: "3em", marginRight: "5em" }}
           >
-            {singleEvent.date}
+            {dayjs(singleEvent.date).format("ddd, MMM D, YYYY")}
           </Typography>
         </div>
         <div className="flex justify-center items-center">

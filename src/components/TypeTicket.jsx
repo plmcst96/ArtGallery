@@ -51,7 +51,6 @@ const TypeTicket = ({ singleEvent }) => {
 
   useEffect(() => {
     dispatch(postAccountSession(token))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleCheckout = async (e) => {
@@ -73,12 +72,14 @@ const TypeTicket = ({ singleEvent }) => {
             hour: hour,
             title: singleEvent?.title,
             date: dayjs(date).format("YYYY-MM-DD"),
+            image: singleEvent?.image[0],
             amount: singleEvent?.amount,
             maxNum: 10,
             typeTicket: typeTicket,
           }),
         }
       )
+
       if (!response.ok) {
         throw new Error("Errore durante la richiesta POST")
       }
@@ -88,7 +89,7 @@ const TypeTicket = ({ singleEvent }) => {
       setClientSecret(client.clientSecret)
       setCheckoutUrl(data.checkoutUrl)
       console.log("Dati di risposta:", data)
-      redirectToCheckout(data.sessionId)
+      await redirectToCheckout(data.sessionId)
     } catch (error) {
       console.error("Errore durante la gestione della richiesta POST:", error)
     }
@@ -98,7 +99,7 @@ const TypeTicket = ({ singleEvent }) => {
     try {
       const stripe = await stripePromise
       if (clientSecret) {
-        const { error } = stripe.redirectToCheckout({
+        const { error } = await stripe.redirectToCheckout({
           sessionId: url,
         })
 
@@ -123,7 +124,6 @@ const TypeTicket = ({ singleEvent }) => {
 
   useEffect(() => {
     dispatch(updateTotal(calculateTotal()))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [typeTicket])
 
   return (

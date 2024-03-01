@@ -6,26 +6,34 @@ export const POST_ACCOUNT_SESSION = "POST_ACCOUNT_SESSION"
 export const POST_ACCOUNT = "POST_ACCOUNT"
 
 export const setDateTicket = (date) => {
+    localStorage.setItem('ticketDate', date);
     return {
         type: SET_DATE,
         payload: date
-    };
+    }
 };
 
 
 export const setTimeTicket = (time) => {
+    localStorage.setItem('ticketTime', time);
     return {
         type: SET_TIME,
         payload: time
     };
 };
 
-export const updateCounter = (type, count) => ({
-    type: UPDATE_COUNTER,
-    payload: { type, count }
-});
+export const updateCounter = (type, count) => {
+    // Salvataggio nel localStorage
+    localStorage.setItem(`${type}`, count + " - " + type);
+
+    return {
+        type: UPDATE_COUNTER,
+        payload: { type, count }
+    };
+};
 
 export const updateTotal = (total) => {
+    localStorage.setItem('total', total);
     return {
         type: UPDATE_TOTAL,
         payload: total,

@@ -42,6 +42,7 @@ export const getSingleEvent = (uuid, token) => {
                     type: GET_SINGLE_EVENT,
                     payload: data
                 })
+                localStorage.setItem("evetData", JSON.stringify(data))
             } else {
                 throw new Error("Error in data recovery ")
             }

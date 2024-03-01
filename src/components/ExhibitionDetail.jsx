@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { getSingleExhibition } from "../redux/actions/exhibition"
 import { getLocationByExhibition } from "../redux/actions/location"
 import { addFavouriteAction } from "../redux/actions/favourite"
+import dayjs from "dayjs"
 
 const ExhibitionDetail = () => {
   const singleExhibition = useSelector(
@@ -114,11 +115,11 @@ const ExhibitionDetail = () => {
             </p>
             <p color="blue-gray" className="mb-2 grid-cols2">
               <span style={{ fontWeight: "bold" }}>Start Date: </span>
-              {singleExhibition.startDate}
+              {dayjs(singleExhibition.startDate).format("ddd, MMM D, YYYY")}
             </p>
             <p color="blue-gray" className="mb-2 grid-cols2">
               <span style={{ fontWeight: "bold" }}>End Date: </span>
-              {singleExhibition.endDate}
+              {dayjs(singleExhibition.endDate).format("ddd, MMM D, YYYY")}
             </p>
             <p color="blue-gray" className="mb-2 grid-cols2">
               <span style={{ fontWeight: "bold" }}>Address: </span>

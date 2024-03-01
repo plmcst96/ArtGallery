@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from "react"
 import dayjs from "dayjs"
 import { loadStripe } from "@stripe/stripe-js"
+import { Button } from "@material-tailwind/react"
 
 // eslint-disable-next-line react/prop-types
 const TypeTicket = ({ singleEvent }) => {
@@ -17,8 +18,8 @@ const TypeTicket = ({ singleEvent }) => {
   const hour = useSelector((state) => state.ticket.selectedTime)
   const date = useSelector((state) => state.ticket.selectedDate)
   const token = localStorage.getItem("token")
-  const customerId = useSelector((state) => state.profile.profile)
   const client = useSelector((state) => state.ticket.addAccountSession)
+
   // eslint-disable-next-line no-unused-vars
   const [checkoutUrl, setCheckoutUrl] = useState("")
   const [clientSecret, setClientSecret] = useState("")
@@ -50,6 +51,7 @@ const TypeTicket = ({ singleEvent }) => {
 
   useEffect(() => {
     dispatch(postAccountSession(token))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleCheckout = async (e) => {
@@ -71,13 +73,10 @@ const TypeTicket = ({ singleEvent }) => {
             hour: hour,
             title: singleEvent?.title,
             date: dayjs(date).format("YYYY-MM-DD"),
-            image: singleEvent?.image[0],
             amount: singleEvent?.amount,
             maxNum: 10,
             typeTicket: typeTicket,
-            name: customerId.name,
-            email: customerId.email,
-          }), // Assicurati che checkoutDetails sia definito correttamente
+          }),
         }
       )
       if (!response.ok) {
@@ -86,21 +85,21 @@ const TypeTicket = ({ singleEvent }) => {
 
       const data = await response.json()
 
-      console.log("Dati di risposta:", data)
       setClientSecret(client.clientSecret)
       setCheckoutUrl(data.checkoutUrl)
-      redirectToCheckout()
+      console.log("Dati di risposta:", data)
+      redirectToCheckout(data.sessionId)
     } catch (error) {
       console.error("Errore durante la gestione della richiesta POST:", error)
     }
   }
 
-  const redirectToCheckout = async () => {
+  const redirectToCheckout = async (url) => {
     try {
       const stripe = await stripePromise
       if (clientSecret) {
-        const { error } = await stripe.redirectToCheckout({
-          sessionId: client.clientSecret,
+        const { error } = stripe.redirectToCheckout({
+          sessionId: url,
         })
 
         if (error) {
@@ -113,7 +112,6 @@ const TypeTicket = ({ singleEvent }) => {
         console.error(
           "Il clientSecret è null. Impossibile procedere con il checkout."
         )
-        // Gestisci il caso in cui il clientSecret sia null
       }
     } catch (error) {
       console.error(
@@ -125,6 +123,7 @@ const TypeTicket = ({ singleEvent }) => {
 
   useEffect(() => {
     dispatch(updateTotal(calculateTotal()))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [typeTicket])
 
   return (
@@ -192,7 +191,9 @@ const TypeTicket = ({ singleEvent }) => {
       </div>
       <div className="mt-10">
         <form onSubmit={handleCheckout}>
-          <button type="submit">Checkout</button>
+          <Button type="submit" className="bg-[#e71b82] rounded-full">
+            Checkout
+          </Button>
         </form>
       </div>
     </div>

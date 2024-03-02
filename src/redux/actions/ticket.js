@@ -67,7 +67,7 @@ export const postAccountSession = (token) => {
                     type: POST_ACCOUNT_SESSION,
                     payload: data
                 })
-
+                localStorage.setItem("clientSecret", data.clientSecret)
 
             } else {
                 throw new Error("Errore nell'invio dei dati")

@@ -1,60 +1,113 @@
 import {
-  Card,
-  CardHeader,
-  CardBody,
-  Typography,
-} from "@material-tailwind/react"
+  Document,
+  Page,
+  Text,
+  View,
+  Image,
+  StyleSheet,
+} from "@react-pdf/renderer"
 import dayjs from "dayjs"
 import image from "../assets/barcode copia.png"
+import logo from "../assets/wflogo.png"
 
-export const PdfTicket = () => {
+const styles = StyleSheet.create({
+  page: {
+    flexDirection: "row",
+    backgroundColor: "#ffffff",
+  },
+  section: {
+    margin: 10,
+    padding: 20,
+    flexGrow: 1,
+  },
+  logo: {
+    width: 40,
+    height: 40,
+    marginBottom: 10,
+    marginRight: 10,
+  },
+  barcode: {
+    width: 60,
+    height: 400,
+    marginRight: 20,
+    marginLeft: "auto",
+  },
+})
+
+const PdfTicket = () => {
   const event = JSON.parse(localStorage.getItem("evetData"))
   const type = localStorage.getItem("standard")
   const data = localStorage.getItem("ticketDate")
   const time = localStorage.getItem("ticketTime")
+  const profile = localStorage.getItem("profile")
+  const tot = localStorage.getItem("total")
+
   return (
-    <Card className="w-full max-w-[80rem] flex-row mt-20 mx-20 h-96">
-      <CardHeader
-        shadow={false}
-        floated={false}
-        className="m-0 w-2/6 shrink-0 rounded-r-none"
-      >
-        <img
-          src={event.image[0]}
-          alt="card-image"
-          className="h-full w-full object-cover"
-        />
-      </CardHeader>
-      <CardBody>
-        <div className="flex flex-row h-full">
-          <div className="w-full">
-            <Typography
-              variant="h6"
-              color="gray"
-              className="mb-4 uppercase text-[#e71b82]"
-            >
-              event_
-            </Typography>
-            <Typography
-              variant="h3"
-              color="blue-gray"
-              className="mb-2 uppercase"
-            >
-              {event.title}
-            </Typography>
-            <Typography className="uppercase">{type}</Typography>
-            <Typography className="uppercase mt-5 font-bold">
-              {dayjs(data).format("ddd, MMM D, YYYY")}
-            </Typography>
-            <Typography color="gray" className="mb-8 font-normal">
-              {time}
-            </Typography>
-          </div>
-          <div className="w-80 justify-end flex">
-            <img src={image} alt="bar" className="w-20 h-full" />
-          </div>
-        </div>
-      </CardBody>
-    </Card>
+    <Document style={{ marginTop: 50 }}>
+      <Page size="A5" orientation="landscape" style={styles.page}>
+        <View style={styles.section}>
+          <Image src={event.image[0]} style={{ width: 270 }} />
+          <Text
+            style={{
+              display: "flex",
+              alignItems: "center",
+              fontSize: 10,
+              justifyContent: "center",
+              marginTop: -110,
+              marginLeft: 300,
+            }}
+          >
+            <Image style={styles.logo} src={logo} />
+            Relese of WOMEN__FEELS
+          </Text>
+          <Text
+            style={{
+              fontWeight: "bold",
+              color: "#e71b82",
+              textTransform: "uppercase",
+              marginTop: 80,
+              marginBottom: 15,
+            }}
+          >
+            event_
+          </Text>
+          <Text style={{ fontSize: 26, textTransform: "uppercase" }}>
+            {event.title}
+          </Text>
+          <Text
+            style={{ textTransform: "uppercase", fontSize: 14, marginTop: 10 }}
+          >
+            {type}
+          </Text>
+          <Text
+            style={{
+              textTransform: "uppercase",
+              fontWeight: "bold",
+              marginTop: 10,
+            }}
+          >
+            {dayjs(data).format("ddd, MMM D, YYYY")}
+          </Text>
+          <Text
+            style={{ color: "gray", marginBottom: 8, fontWeight: "normal" }}
+          >
+            {time}
+          </Text>
+          <Text
+            style={{
+              color: "gray",
+              marginBottom: 8,
+              fontWeight: "bold",
+              fontSize: 14,
+            }}
+          >
+            {profile} <Text> -- {tot},00€ </Text>
+          </Text>
+        </View>
+        <Image style={styles.barcode} src={image} />
+      </Page>
+    </Document>
   )
 }
+
+export default PdfTicket

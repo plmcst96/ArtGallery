@@ -18,7 +18,7 @@ const TypeTicket = ({ singleEvent }) => {
   const hour = useSelector((state) => state.ticket.selectedTime)
   const date = useSelector((state) => state.ticket.selectedDate)
   const token = localStorage.getItem("token")
-  const client = useSelector((state) => state.ticket.addAccountSession)
+  const client = localStorage.getItem("clientSecret")
 
   // eslint-disable-next-line no-unused-vars
   const [checkoutUrl, setCheckoutUrl] = useState("")
@@ -86,10 +86,10 @@ const TypeTicket = ({ singleEvent }) => {
 
       const data = await response.json()
 
-      setClientSecret(client.clientSecret)
+      setClientSecret(client)
       setCheckoutUrl(data.checkoutUrl)
       console.log("Dati di risposta:", data)
-      await redirectToCheckout(data.sessionId)
+      redirectToCheckout(data.sessionId)
     } catch (error) {
       console.error("Errore durante la gestione della richiesta POST:", error)
     }

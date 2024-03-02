@@ -47,7 +47,7 @@ const BlogDetail = () => {
               <Button
                 className="text-white flex"
                 variant="text"
-                style={{ marginLeft: "190px" }}
+                style={{ marginLeft: "350px" }}
                 onClick={handleAddToFavourite}
               >
                 Add to Favourite

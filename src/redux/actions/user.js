@@ -21,6 +21,7 @@ export const getProfile = (token) => {
                     payload: data
                 })
                 localStorage.setItem("userId", data.uuid)
+                localStorage.setItem("profile", data.name + " " + data.surname)
             } else {
                 throw new Error("Error in data recovery ")
             }

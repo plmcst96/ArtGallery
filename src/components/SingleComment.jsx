@@ -44,9 +44,18 @@ const SingleComment = ({ comment, singleBlog }) => {
       console.log(uuidString)
 
       dispatch(putComment(uuidString, updatedComment, token))
+        .then(() => {
+          // Dopo il salvataggio delle modifiche, carica nuovamente i commenti
+          dispatch(getComments(singleBlog, token))
+        })
+        .catch((error) => {
+          console.error(
+            "Errore durante il salvataggio delle modifiche al commento:",
+            error
+          )
+        })
 
       setShowModal(false)
-      dispatch(getComments(singleBlog, token))
     } else {
       console.log("Il rating deve essere compreso tra 0 e 5.")
     }

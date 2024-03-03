@@ -1,4 +1,4 @@
-# WOMEN\_\_FEELS <img src="./src/assets/wflogo.png">
+# WOMEN\_\_FEELS <img src="./src/assets/wflogo.png" width: 50px heigth: 50px>
 
 ## 💻 Full Stack Capstone Project
 

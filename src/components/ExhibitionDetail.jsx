@@ -177,9 +177,7 @@ const ExhibitionDetail = () => {
             variant="filled"
             className="rounded-full bottone mr-6 bg-[#e71b82] hover:bg-black "
             style={{ width: "170px" }}
-            onClick={() =>
-              navigate("/tickets/exhibition/" + singleExhibition.uuid)
-            }
+            onClick={() => navigate("/tickets/exhibition/" + uuid)}
           >
             Buy Ticket
           </Button>

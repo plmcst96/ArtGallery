@@ -24,6 +24,7 @@ import { AdminBlog } from "./components/AdminBlog"
 import { Profile } from "./pages/Profile"
 import { CuratorRequest } from "./components/CuratorRequest"
 import { SuccesPage } from "./components/SuccesPage"
+import { TicketEx } from "./pages/TicketEx"
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
           <Route path="/blog" element={<BlogList />} />
           <Route path="/blog/detail/:uuid" element={<BlogDetail />} />
           <Route path="/tickets/event/:uuid" element={<Ticket />} />
+          <Route path="/tickets/exhibition/:uuid" element={<TicketEx />} />
           <Route path="/success" element={<SuccesPage />} />
           <Route path="/exhibitions" element={<ExhibitionList />} />
           <Route path="/favourite" element={<FavouriteList />} />

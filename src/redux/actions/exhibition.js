@@ -48,6 +48,7 @@ export const getSingleExhibition = (uuid, token) => {
                     type: GET_SINGLE_EXHIBITION,
                     payload: data
                 })
+                localStorage.setItem("exData", JSON.stringify(data))
             } else {
                 throw new Error('Errore nel recupero delle mostre')
             }

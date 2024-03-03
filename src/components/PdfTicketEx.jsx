@@ -34,8 +34,8 @@ const styles = StyleSheet.create({
   },
 })
 
-const PdfTicket = () => {
-  const event = JSON.parse(localStorage.getItem("evetData"))
+const PdfTicketEx = () => {
+  const ex = JSON.parse(localStorage.getItem("exData"))
   const type = localStorage.getItem("standard")
   const data = localStorage.getItem("ticketDate")
   const time = localStorage.getItem("ticketTime")
@@ -46,7 +46,7 @@ const PdfTicket = () => {
     <Document style={{ marginTop: 50 }}>
       <Page size="A5" orientation="landscape" style={styles.page}>
         <View style={styles.section}>
-          <Image src={event.image[0]} style={{ width: 270 }} />
+          <Image src={ex.image[0]} style={{ width: 270 }} />
           <Text
             style={{
               display: "flex",
@@ -69,10 +69,10 @@ const PdfTicket = () => {
               marginBottom: 15,
             }}
           >
-            event_
+            exhibition__
           </Text>
           <Text style={{ fontSize: 24, textTransform: "uppercase" }}>
-            {event.title}
+            {ex.title}
           </Text>
           <Text
             style={{ textTransform: "uppercase", fontSize: 14, marginTop: 10 }}
@@ -110,4 +110,4 @@ const PdfTicket = () => {
   )
 }
 
-export default PdfTicket
+export default PdfTicketEx

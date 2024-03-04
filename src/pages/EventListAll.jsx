@@ -7,8 +7,9 @@ import {
 } from "@material-tailwind/react"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { getAllEvents, getSingleEvent } from "../redux/actions/event"
+import dayjs from "dayjs"
 
 const EventsListAll = () => {
   const eventData = useSelector((state) => state.event.events)
@@ -51,7 +52,7 @@ const EventsListAll = () => {
               <Typography color="white" className="mb-8 font-normal">
                 {event.description.slice(0, 500)}
               </Typography>
-              <p>{event.date}</p>
+              <p>{dayjs(event.date).format("ddd, MMM D, YYYY")}</p>
 
               <div className="flex justify-start gap-2 mt-10">
                 <Button
@@ -59,8 +60,11 @@ const EventsListAll = () => {
                   color="white"
                   variant="outlined"
                   className="rounded-full bottone mr-6"
+                  onClick={() => {
+                    navigate("/tickets/event/" + event.uuid)
+                  }}
                 >
-                  <Link to="/tickets">Buy Ticket</Link>
+                  Buy Ticket
                 </Button>
                 <Button
                   size="lg"

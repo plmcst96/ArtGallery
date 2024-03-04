@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom"
 import "./App.css"
 
 import NavBar from "./components/NavBar"
@@ -8,23 +8,65 @@ import HomePage from "./pages/HomePage"
 import NewsLetter from "./components/NewsLetter"
 import ArtistList from "./pages/ArtistList"
 import ArtistDetail from "./pages/ArtistDetail"
-import LoginForm from "./components/LoginForm"
 import EventsListAll from "./pages/EventListAll"
 import EventDetail from "./components/EventDetail"
+import BlogList from "./pages/BlogList"
+import BlogDetail from "./components/BlogDetail"
+import Ticket from "./pages/Ticket"
+
+import LoginCurator from "./pages/LoginCurator"
+import ExhibitionList from "./pages/ExhibitionList"
+import ExhibitionDetail from "./components/ExhibitionDetail"
+import FavouriteList from "./components/FavouriteList"
+import AdminPage from "./pages/AdminPage"
+import AdminArtist from "./pages/AdminArtist"
+import { AdminBlog } from "./components/AdminBlog"
+import { Profile } from "./pages/Profile"
+import { CuratorRequest } from "./components/CuratorRequest"
+import { SuccesPage } from "./components/SuccesPage"
+import { TicketEx } from "./pages/TicketEx"
+import { useEffect } from "react"
+
+function ScrollToTop() {
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
+
+  return null
+}
 
 function App() {
   return (
     <BrowserRouter>
       <NavBar />
       <main>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/login/curator" element={<LoginForm />} />
+          <Route path="/login/curator" element={<LoginCurator />} />
           <Route path="/artist" element={<ArtistList />} />
           <Route path="/artist/detail/:uuid" element={<ArtistDetail />} />
           <Route path="/events" element={<EventsListAll />} />
           <Route path="/event/detail/:uuid" element={<EventDetail />} />
+          <Route path="/blog" element={<BlogList />} />
+          <Route path="/blog/detail/:uuid" element={<BlogDetail />} />
+          <Route path="/tickets/event/:uuid" element={<Ticket />} />
+          <Route path="/tickets/exhibition/:uuid" element={<TicketEx />} />
+          <Route path="/success" element={<SuccesPage />} />
+          <Route path="/exhibitions" element={<ExhibitionList />} />
+          <Route path="/favourite" element={<FavouriteList />} />
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/admin/artistWork" element={<AdminArtist />} />
+          <Route path="/admin/blog" element={<AdminBlog />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/curator" element={<CuratorRequest />} />
+          <Route
+            path="/exhibition/detail/:uuid"
+            element={<ExhibitionDetail />}
+          />
         </Routes>
       </main>
       <NewsLetter />

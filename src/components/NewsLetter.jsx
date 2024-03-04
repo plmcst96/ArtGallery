@@ -2,7 +2,7 @@ import { Checkbox, Button, Input, Typography } from "@material-tailwind/react"
 
 const NewsLetter = () => {
   return (
-    <div id="new" className="grid grid-cols-1 w-full mt-20">
+    <div id="new" className="grid grid-cols-1 lg:w-full w-40 mt-20">
       <div
         style={{ width: "510px", marginLeft: "50%" }}
         className="flex justify-end"
@@ -36,7 +36,7 @@ const NewsLetter = () => {
             }
           />
           <Button fullWidth className="bg-[#e71b82] rounded-full mt-10">
-            Log In
+            Send
           </Button>
         </form>
       </div>

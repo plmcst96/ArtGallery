@@ -7,7 +7,7 @@ import { useState } from "react"
 const ArtistDetaillHist = ({ singleArtist }) => {
   const [showModal, setShowModal] = useState(false)
   return (
-    <div className="grid grid-cols-2 gap-20 my-10 mx-20 mb-20">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 my-10 mx-20 mb-20">
       <Card className="mt-6 bg-[#EFEFEF]">
         <CardBody className="px-20 py-10">
           <img

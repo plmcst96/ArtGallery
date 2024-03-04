@@ -1,7 +1,5 @@
-import { CardBody, CardFooter } from "@material-tailwind/react"
-import { Input } from "postcss"
-import { useEffect, useState } from "react"
-import { Button } from "react-day-picker"
+import { CardBody, CardFooter, Button, Input } from "@material-tailwind/react"
+import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { postRegisterCurator } from "../redux/actions/login"
 
@@ -15,11 +13,6 @@ const RegisterFormCurator = () => {
   })
 
   const dispatch = useDispatch()
-  /* const registrationData = useSelector((state) => state.content) */
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   return (
     <CardBody className=" flex flex-col gap-4">

@@ -7,13 +7,14 @@ import {
 } from "@material-tailwind/react"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { getAllEvents } from "../redux/actions/event"
 
 const EventHome = () => {
   const eventData = useSelector((state) => state.event.events)
   const dispatch = useDispatch()
   const token = localStorage.getItem("token")
+  const navigate = useNavigate()
 
   useEffect(() => {
     dispatch(getAllEvents(token))
@@ -35,7 +36,7 @@ const EventHome = () => {
                 className="m-0 w-2/5 shrink-0 rounded"
               >
                 <img
-                  src={event.image}
+                  src={event.image[0]}
                   alt="card-image"
                   className="h-full w-full object-cover"
                 />
@@ -55,16 +56,18 @@ const EventHome = () => {
                     color="white"
                     variant="outlined"
                     className="rounded-full bottone mr-6"
+                    onClick={() => navigate("/tickets/" + event.uuid)}
                   >
-                    <Link to="/tickets">Buy Ticket</Link>
+                    Buy Ticket
                   </Button>
                   <Button
                     size="lg"
                     color="white"
                     variant="outlined"
                     className="rounded-full bottone"
+                    onClick={() => navigate("/event/detail/" + event.uuid)}
                   >
-                    <Link to="/exhibitions">Read More</Link>
+                    Read More
                   </Button>
                 </div>
               </CardBody>

@@ -1,8 +1,11 @@
-import { GET_GALLERY, LOAD_GALLERY_ID } from "../actions/artistWork"
+import { DELETE_WORK, GET_GALLERY, GET_SINGLE_ARTWORK, LOAD_GALLERY_ID, POST_GALLERY, POST_PICTURE_WORK, POST_WORK } from "../actions/artistWork"
 
 const initialState = {
     gallery: [],
-    galleryId: null
+    galleryId: null,
+    singleArtwork: null,
+    postGallery: null,
+    postWork: null
 }
 
 const galleryReducer = (state = initialState, action) => {
@@ -16,6 +19,31 @@ const galleryReducer = (state = initialState, action) => {
             return {
                 ...state,
                 galleryId: action.payload
+            }
+        case GET_SINGLE_ARTWORK:
+            return {
+                ...state,
+                singleArtwork: action.payload
+            }
+        case POST_GALLERY:
+            return {
+                ...state,
+                postGallery: action.payload
+            }
+        case POST_WORK:
+            return {
+                ...state,
+                postWork: action.payload
+            }
+        case POST_PICTURE_WORK:
+            return {
+                ...state,
+                singleArtwork: action.payload
+            }
+        case DELETE_WORK:
+            return {
+                ...state,
+                gallery: state.gallery.filter(work => work.uuid !== action.payload)
             }
         default:
             return state

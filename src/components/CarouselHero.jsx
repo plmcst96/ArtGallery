@@ -1,9 +1,4 @@
-import {
-  Button,
-  Carousel,
-  IconButton,
-  Typography,
-} from "@material-tailwind/react"
+import { Button, Carousel, Typography } from "@material-tailwind/react"
 import frida from "../assets/frida2.png"
 import img2 from "../assets/img1.png"
 import testa from "../assets/immagine marina fade1751-31ad-4bb1-b68a-89e54920270b.png"
@@ -15,8 +10,8 @@ const CarouselHero = () => {
       transition={{ duration: 2 }}
       autoplay={true}
       className="carus"
-      prevArrow={() => <IconButton color="transparent"></IconButton>}
-      nextArrow={() => <IconButton color="transparent"></IconButton>}
+      prevArrow={() => <Button color="transparent"></Button>}
+      nextArrow={() => <Button color="transparent"></Button>}
     >
       <div className="h-full w-full relative">
         <img src={frida} alt="image 1" className="h-full w-full object-cover" />
@@ -47,7 +42,7 @@ const CarouselHero = () => {
                 variant="outlined"
                 className="rounded-full bottone"
               >
-                <Link to="/exhibitions">Read More</Link>
+                <Link to="/exhibitions">Learn More</Link>
               </Button>
             </div>
           </div>
@@ -55,7 +50,7 @@ const CarouselHero = () => {
       </div>
 
       <div className="h-full w-full relative">
-        <img src={img2} alt="image 1" className="h-full w-full object-cover" />
+        <img src={img2} alt="image 2" className="h-full w-full object-cover" />
         <div className="absolute inset-0 grid h-full w-full place-items-left ml-10">
           <div className="w-3/4  md:w-2/4">
             <Typography
@@ -83,14 +78,14 @@ const CarouselHero = () => {
                 variant="outlined"
                 className="rounded-full bottone"
               >
-                <Link to="/exhibitions">Read More</Link>
+                <Link to="/exhibitions">Learn More</Link>
               </Button>
             </div>
           </div>
         </div>
       </div>
       <div className="h-full w-full relative">
-        <img src={testa} alt="image 1" className="h-full w-full object-cover" />
+        <img src={testa} alt="image 3" className="h-full w-full object-cover" />
         <div className="absolute inset-0 grid h-full w-full place-items-left ml-10">
           <div className="w-3/4  md:w-2/4">
             <Typography
@@ -118,7 +113,7 @@ const CarouselHero = () => {
                 variant="outlined"
                 className="rounded-full bottone"
               >
-                <Link to="/exhibitions">Read More</Link>
+                <Link to="/exhibitions">Learn More</Link>
               </Button>
             </div>
           </div>

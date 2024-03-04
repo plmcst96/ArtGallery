@@ -75,6 +75,11 @@ h2 h1 {
   height: 450px;
 }
 
+.selected {
+  background-color: #e71b82; /* Colore di sfondo desiderato quando il pulsante è selezionato */
+  color: white;
+}
+
 @media only screen and (min-width: 400px) {
   img {
     width: 150px;

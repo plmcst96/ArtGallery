@@ -9,6 +9,7 @@ module.exports = withMT({
       sans: ['Inter', 'sans-serif']
     }
   },
+
   plugins: [],
 });
 

@@ -50,6 +50,7 @@ export const postLogin = (login) => {
                 localStorage.setItem("role", data.role);
 
                 alert("Login effettuato con successo!");
+                window.location.reload()
             } else {
                 throw new Error("The login is fail!");
             }

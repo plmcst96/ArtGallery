@@ -16,7 +16,7 @@ export const CuratorRequest = () => {
           publicize your new artist!
         </Typography>
       </div>
-      <div className="grid grid-cols-2 lg:grid-cols-4 mx-10 gap-10 mt-20">
+      <div className="grid grid-cols-2 lg:grid-cols-3 mx-10 gap-10 mt-20">
         <ArtistRequest />
         <WorkRequest />
         <ExhibitionRequest />

@@ -52,7 +52,10 @@ export const WorkRequest = () => {
   return (
     <div>
       <div>
-        <Card className="mt-6 w-full">
+        <Card
+          className="mt-6 w-full flex justify-between"
+          style={{ height: "200px" }}
+        >
           <CardBody>
             <Typography variant="h5" className="mb-2 text-[#e71b82]">
               Art Work__

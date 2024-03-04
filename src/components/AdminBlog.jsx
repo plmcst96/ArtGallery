@@ -3,6 +3,8 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getAllBlog, removeBlog } from "../redux/actions/blog"
 import { DialogBlog } from "./DialogBlog"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 export const AdminBlog = () => {
   const blogData = useSelector((state) => state.blog.blogs)
@@ -16,7 +18,16 @@ export const AdminBlog = () => {
   }, [dispatch, token])
 
   const handleDeleteBlog = (blogId) => {
-    dispatch(removeBlog(blogId, token))
+    toast.warning("Sei sicuro di voler eliminare questo elemento?", {
+      autoClose: false,
+      closeOnClick: false,
+      draggable: true,
+      pauseOnHover: true,
+      closeButton: true,
+      onClose: () => {
+        dispatch(removeBlog(blogId, token))
+      },
+    })
     dispatch(getAllBlog(token))
   }
 
@@ -34,7 +45,7 @@ export const AdminBlog = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="#e71b82"
-            className="w-8 h-8 ml-10"
+            className="w-8 h-8 ml-10 cursor-pointer"
             onClick={handleOpen}
           >
             <path
@@ -97,7 +108,7 @@ export const AdminBlog = () => {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="white"
-                    className="w-6 h-6"
+                    className="w-6 h-6 cursor-pointer"
                     onClick={() => handleDeleteBlog(blog.uuid)}
                   >
                     <path
@@ -112,6 +123,7 @@ export const AdminBlog = () => {
           ))}
         </div>
       </div>
+      <ToastContainer />
     </div>
   )
 }

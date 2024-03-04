@@ -11,6 +11,8 @@ import {
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { getAllBlog, postBlog, postPictureBlog } from "../redux/actions/blog"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 // eslint-disable-next-line react/prop-types
 export const DialogBlog = ({ open, handler }) => {
@@ -32,8 +34,28 @@ export const DialogBlog = ({ open, handler }) => {
     await dispatch(postBlog(addBlog, token))
     const blog = localStorage.getItem("blog")
     dispatch(postPictureBlog(blog, token, img.image))
-    await dispatch(getAllBlog(token))
+
+    setAddBlog({
+      author: "",
+      date: "",
+      description: "",
+      title: "",
+      quote: "",
+    })
+
     handler()
+    toast.success("Nuovo blog aggiunto con successo!", {
+      autoClose: true,
+      closeOnClick: true,
+      draggable: true,
+      pauseOnHover: true,
+      closeButton: true,
+    })
+
+    setTimeout(() => {
+      dispatch(getAllBlog(token))
+      window.location.reload()
+    }, 3000)
   }
 
   return (
@@ -182,6 +204,7 @@ export const DialogBlog = ({ open, handler }) => {
             >
               <span>Confirm</span>
             </Button>
+            <ToastContainer />
           </DialogFooter>
         </form>
       </DialogBody>

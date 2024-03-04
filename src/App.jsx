@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom"
 import "./App.css"
 
 import NavBar from "./components/NavBar"
@@ -25,12 +25,24 @@ import { Profile } from "./pages/Profile"
 import { CuratorRequest } from "./components/CuratorRequest"
 import { SuccesPage } from "./components/SuccesPage"
 import { TicketEx } from "./pages/TicketEx"
+import { useEffect } from "react"
+
+function ScrollToTop() {
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
+
+  return null
+}
 
 function App() {
   return (
     <BrowserRouter>
       <NavBar />
       <main>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />

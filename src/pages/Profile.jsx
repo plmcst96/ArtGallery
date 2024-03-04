@@ -10,12 +10,14 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getProfile, postAvatar, putProfile } from "../redux/actions/user"
 import { ProfileInfo } from "../components/ProfileInfo"
+import { CuratorNotify } from "../components/CuratorNotify"
 
 export const Profile = () => {
   const profile = useSelector((state) => state.profile.profile)
   const dispatch = useDispatch()
   const token = localStorage.getItem("token")
   const role = localStorage.getItem("role")
+  const notifications = JSON.parse(localStorage.getItem("notify"))
   const [editMode, setEditMode] = useState(false)
   const [editProfile, setEditProfile] = useState({
     name: "",
@@ -104,6 +106,7 @@ export const Profile = () => {
           >
             {role}
           </Typography>
+          <div></div>
         </div>
 
         <Card
@@ -205,9 +208,12 @@ export const Profile = () => {
               </Button>
             )}
           </form>
-          <div className="mr-20 mt-20 w-96">
-            <ProfileInfo profile={profile} />
-          </div>
+          {role === "USER" ? (
+            <div className="mr-20 mt-20 w-96">
+              <ProfileInfo profile={profile} />
+            </div>
+          ) : null}
+          {role === "CURATOR" && notifications ? <CuratorNotify /> : null}
         </Card>
       </div>
     </div>

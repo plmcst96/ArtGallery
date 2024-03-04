@@ -6,13 +6,13 @@ import {
   Drawer,
   Input,
   Textarea,
-  Avatar,
 } from "@material-tailwind/react"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import emailjs from "@emailjs/browser"
 import { toast } from "react-toastify"
 import FavouriteIndicatore from "./FavouriteIndicator"
+import { ProfileAvatar } from "./ProfileAvatar"
 
 const NavBar = () => {
   const [openNav, setOpenNav] = useState(false)
@@ -290,13 +290,7 @@ const NavBar = () => {
                 </svg>
               </Link>
             </Button>
-            <Link to="/profile">
-              <Avatar
-                src="https://docs.material-tailwind.com/img/face-2.jpg"
-                alt="avatar"
-                className="w-8 h-8 md:hidden lg:inline-flex"
-              />
-            </Link>
+            <ProfileAvatar />
           </div>
           <Button
             variant="text"

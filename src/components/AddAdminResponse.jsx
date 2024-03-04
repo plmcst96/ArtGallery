@@ -43,6 +43,7 @@ export const AddAdminResponse = () => {
                     type: "success",
                   })
                 )
+                window.location.reload()
               }}
             >
               Add new artist
@@ -64,7 +65,17 @@ export const AddAdminResponse = () => {
           <CardFooter className="pt-0">
             <Button
               className="rounded-full"
-              onClick={() => dispatch(postWork(work, token))}
+              onClick={() => {
+                dispatch(postWork(work, token))
+                localStorage.removeItem("workRequest")
+                dispatch(
+                  addNotification({
+                    message: "Nuova opera aggiunta",
+                    type: "success",
+                  })
+                )
+                window.location.reload()
+              }}
             >
               Add new work
             </Button>
@@ -86,7 +97,18 @@ export const AddAdminResponse = () => {
           <CardFooter className="pt-0">
             <Button
               className="rounded-full"
-              onClick={() => dispatch(postExhibition(ex, token))}
+              onClick={() => {
+                dispatch(postExhibition(ex, token))
+                localStorage.removeItem("exhibitionRequest")
+                dispatch(
+                  addNotification({
+                    message: "Nuovo artista aggiunto",
+                    type: "success",
+                    id: uuidv4(),
+                  })
+                )
+                window.location.reload()
+              }}
             >
               Add new exhibition
             </Button>
@@ -95,4 +117,12 @@ export const AddAdminResponse = () => {
       )}
     </div>
   )
+}
+
+function uuidv4() {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+    var r = (Math.random() * 16) | 0,
+      v = c == "x" ? r : (r & 0x3) | 0x8
+    return v.toString(16)
+  })
 }

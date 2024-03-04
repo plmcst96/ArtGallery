@@ -8,7 +8,7 @@ import {
   Textarea,
 } from "@material-tailwind/react"
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import emailjs from "@emailjs/browser"
 import { toast } from "react-toastify"
 import FavouriteIndicatore from "./FavouriteIndicator"
@@ -20,6 +20,7 @@ const NavBar = () => {
   const openDrawer = () => setOpen(true)
   const closeDrawer = () => setOpen(false)
   const role = localStorage.getItem("role")
+  const { pathname } = useLocation()
 
   useEffect(() => {
     window.addEventListener(
@@ -37,7 +38,12 @@ const NavBar = () => {
         className="p-1 font-medium cursor-pointer"
         type="button"
       >
-        <Link to="/artist" className="flex items-center">
+        <Link
+          to="/artist"
+          className={`flex items-center ${
+            pathname.includes("/artist") ? "text-[#e71b82] font-bold" : null
+          }`}
+        >
           Artist
         </Link>
       </Typography>
@@ -47,7 +53,12 @@ const NavBar = () => {
         color="white"
         className="p-1 font-normal cursor-pointer"
       >
-        <Link to="/blog" className="flex items-center">
+        <Link
+          to="/blog"
+          className={`flex items-center ${
+            pathname.includes("/blog") ? "text-[#e71b82] font-bold" : null
+          }`}
+        >
           Blog
         </Link>
       </Typography>
@@ -57,7 +68,12 @@ const NavBar = () => {
         color="white"
         className="p-1 font-normal cursor-pointer"
       >
-        <Link to="/exhibitions" className="flex items-center">
+        <Link
+          to="/exhibitions"
+          className={`flex items-center ${
+            pathname.includes("/exhibition") ? "text-[#e71b82] font-bold" : null
+          }`}
+        >
           Exhibition
         </Link>
       </Typography>
@@ -67,7 +83,12 @@ const NavBar = () => {
         color="white"
         className="p-1 font-normal cursor-pointer"
       >
-        <Link to="/events" className="flex items-center">
+        <Link
+          to="/events"
+          className={`flex items-center ${
+            pathname.includes("/event") ? "text-[#e71b82] font-bold" : null
+          }`}
+        >
           Event
         </Link>
       </Typography>
@@ -88,7 +109,14 @@ const NavBar = () => {
           color="white"
           className="p-1 font-normal cursor-pointer"
         >
-          <Link to="/admin">| Admin</Link>
+          <Link
+            to="/admin"
+            className={`flex items-center ${
+              pathname.includes("/admin") ? "text-[#e71b82] font-bold" : null
+            }`}
+          >
+            | Admin
+          </Link>
         </Typography>
       ) : null}
 
@@ -99,7 +127,14 @@ const NavBar = () => {
           color="white"
           className="p-1 font-normal cursor-pointer"
         >
-          <Link to="/curator">| Curator</Link>
+          <Link
+            to="/curator"
+            className={`flex items-center ${
+              pathname.includes("/curator") ? " text-[#e71b82] font-bold" : null
+            }`}
+          >
+            | Curator
+          </Link>
         </Typography>
       ) : null}
     </ul>

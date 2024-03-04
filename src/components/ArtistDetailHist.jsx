@@ -97,7 +97,7 @@ const ArtistDetaillHist = ({ singleArtist }) => {
                   </div>
                   {/*body*/}
                   <div className="relative p-6 flex-auto">
-                    <p className="m-4 text-blueGray-500 text-md leading-relaxed">
+                    <p className="m-4 text-blueGray-500 text-md leading-relaxed text-start">
                       {singleArtist.historyArtist}
                     </p>
                   </div>

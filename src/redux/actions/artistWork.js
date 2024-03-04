@@ -99,7 +99,7 @@ export const postGallery = (artistUuid, token) => {
                     type: POST_GALLERY,
                     payload: data
                 })
-                localStorage.setItem("galleryId")
+                localStorage.setItem("galleryId", data)
 
             } else {
                 throw new Error("Errore nell'invio della galleria")
@@ -131,7 +131,7 @@ export const deleteGallery = (uuid, token) => {
                 throw new Error('Qualquadra non cosa')
             }
         } catch (error) {
-            console.log('errore nella cancellazione del commento', error)
+            console.log('errore nella cancellazione della galleria', error)
         }
     }
 }

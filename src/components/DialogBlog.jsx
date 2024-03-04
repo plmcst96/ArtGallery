@@ -44,7 +44,7 @@ export const DialogBlog = ({ open, handler }) => {
       style={{ height: "75%" }}
     >
       <DialogHeader className="text-[#e71b82] ml-20 mt-5 mb-0">
-        ADD NEW ARTIST__
+        ADD NEW BLOG__
       </DialogHeader>
       <DialogBody className="flex justify-center">
         <form
@@ -58,7 +58,7 @@ export const DialogBlog = ({ open, handler }) => {
             <Input
               size="md"
               value={addBlog.title}
-              placeholder="name"
+              placeholder="title"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
                 className: "before:content-none after:content-none",
@@ -77,7 +77,7 @@ export const DialogBlog = ({ open, handler }) => {
               type="text"
               size="md"
               value={addBlog.author}
-              placeholder="surname"
+              placeholder="author"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
                 className: "before:content-none after:content-none",
@@ -90,13 +90,13 @@ export const DialogBlog = ({ open, handler }) => {
               }}
             />
             <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Description Work
+              Description Blog
             </Typography>
             <Textarea
               type="text"
               size="md"
               value={addBlog.description}
-              placeholder="history"
+              placeholder="description"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
                 className: "before:content-none after:content-none",
@@ -115,7 +115,7 @@ export const DialogBlog = ({ open, handler }) => {
               type="text"
               size="md"
               value={addBlog.date}
-              placeholder="birth"
+              placeholder="date"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
                 className: "before:content-none after:content-none",
@@ -134,7 +134,7 @@ export const DialogBlog = ({ open, handler }) => {
               type="text"
               size="md"
               value={addBlog.quote}
-              placeholder="birth"
+              placeholder="quote"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
                 className: "before:content-none after:content-none",
@@ -147,12 +147,12 @@ export const DialogBlog = ({ open, handler }) => {
               }}
             />
             <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Picture Work
+              Picture Blog
             </Typography>
             <Input
               type="file"
               size="md"
-              placeholder="quote"
+              placeholder="image"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
                 className: "before:content-none after:content-none",

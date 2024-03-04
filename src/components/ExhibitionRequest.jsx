@@ -38,7 +38,7 @@ export const ExhibitionRequest = () => {
   const handleFormSubmit = () => {
     // Save form data to local storage
     const requestId = uuidv4()
-    localStorage.setItem("workRequest", JSON.stringify(formData))
+    localStorage.setItem("exhibitionRequest", JSON.stringify(formData))
     // Optionally, you can clear the form data after submission
     setFormData({
       uuid: requestId,

@@ -106,7 +106,7 @@ export const DialogWork = ({ open, handler }) => {
       style={{ height: "75%" }}
     >
       <DialogHeader className="text-[#e71b82] ml-20 mt-5 mb-0">
-        ADD NEW ARTIST__
+        ADD NEW ART WORK__
       </DialogHeader>
       <DialogBody className="flex justify-center">
         <form

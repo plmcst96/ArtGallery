@@ -18,7 +18,7 @@ export const WorkRequest = () => {
     yearStartWork: "",
     technique: "",
     description: "",
-    artistId: artist.uuid,
+    artistId: artist?.uuid,
   })
 
   const toggleFormVisibility = () => {

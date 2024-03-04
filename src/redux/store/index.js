@@ -11,6 +11,7 @@ import { profileReducer } from "../reducers/user"
 import { exhibitionReducer } from "../reducers/exhibition"
 import { locationReducer } from "../reducers/location"
 import favReducer from "../reducers/favourite"
+import notificationReducer from "../reducers/notify"
 
 const bigReducer = combineReducers({
     artist: artistReducer,
@@ -24,7 +25,8 @@ const bigReducer = combineReducers({
     profile: profileReducer,
     exhibition: exhibitionReducer,
     location: locationReducer,
-    favourite: favReducer
+    favourite: favReducer,
+    notification: notificationReducer
 })
 
 const store = configureStore({

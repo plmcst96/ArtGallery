@@ -41,7 +41,7 @@ export const DialogCard = ({ open, handler }) => {
       style={{ height: "45%" }}
     >
       <DialogHeader className="text-[#e71b82] ml-20 mt-5 mb-0">
-        ADD NEW ARTIST__
+        ADD CREDIT CARD__
       </DialogHeader>
       <DialogBody className="flex justify-center">
         <form className="flex w-72 flex-col gap-6 mt-10">

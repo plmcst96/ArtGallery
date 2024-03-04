@@ -55,7 +55,7 @@ export const DialogLocation = ({ open, handler }) => {
       style={{ height: "50%" }}
     >
       <DialogHeader className="text-[#e71b82] ml-20 mt-5 mb-0">
-        ADD NEW ARTIST__
+        ADD LOCATION__
       </DialogHeader>
       <DialogBody className="flex justify-center">
         <form

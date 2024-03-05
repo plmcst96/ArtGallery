@@ -23,9 +23,13 @@ const EventHome = () => {
 
   return (
     <div>
-      <h2 className="text-white ml-20" style={{ marginTop: "4em" }}>
+      <Typography
+        variant="h4"
+        className="text-white ml-20"
+        style={{ marginTop: "4em" }}
+      >
         EVENTS__
-      </h2>
+      </Typography>
       {eventData
         .map((event) => (
           <div key={event.uuid}>

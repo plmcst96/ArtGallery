@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
 import { getAlArtist } from "../redux/actions/artist"
+import { Typography } from "@material-tailwind/react"
 
 const ArtistHome = () => {
   const artistData = useSelector((state) => state.artist.artists)
@@ -17,9 +18,13 @@ const ArtistHome = () => {
 
   return (
     <div className="grid grid-cos-1">
-      <h2 className="text-white ml-20" style={{ marginTop: "4em" }}>
+      <Typography
+        variant="h4"
+        className="text-white ml-20"
+        style={{ marginTop: "4em" }}
+      >
         ARTIST__
-      </h2>
+      </Typography>
       <div
         className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-x-4 gap-y-6 m-8 artist"
         style={{ marginTop: "3em" }}

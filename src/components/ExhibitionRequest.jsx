@@ -8,6 +8,8 @@ import {
   Typography,
 } from "@material-tailwind/react"
 import { useState } from "react"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 export const ExhibitionRequest = () => {
   const [isFormVisible, setIsFormVisible] = useState(false)
@@ -20,7 +22,7 @@ export const ExhibitionRequest = () => {
     description: "",
     amount: "",
     openHour: "",
-    artistWork: work.uuid,
+    artistWork: work?.uuid,
   })
 
   const toggleFormVisibility = () => {
@@ -50,13 +52,18 @@ export const ExhibitionRequest = () => {
       openHour: "",
       artistWork: "",
     })
+    toast.success("New exhibition request sent successfully!")
     toggleFormVisibility()
   }
 
   return (
     <div>
+      <ToastContainer />
       <div>
-        <Card className="mt-6 w-full">
+        <Card
+          className="mt-6 w-full flex justify-between"
+          style={{ height: "200px" }}
+        >
           <CardBody>
             <Typography variant="h5" className="mb-2 text-[#e71b82]">
               Exhibition__

@@ -7,8 +7,9 @@ import {
   Input,
   Textarea,
 } from "@material-tailwind/react"
-
+import "react-toastify/dist/ReactToastify.css"
 import { useState } from "react"
+import { ToastContainer, toast } from "react-toastify"
 
 export const ArtistRequest = () => {
   const [isFormVisible, setIsFormVisible] = useState(false)
@@ -48,13 +49,18 @@ export const ArtistRequest = () => {
       historyArtist: "",
       quote: "",
     })
+    toast.success("New artist request sent successfully!")
     toggleFormVisibility()
   }
 
   return (
     <div>
+      <ToastContainer />
       <div>
-        <Card className="mt-6 w-full">
+        <Card
+          className="mt-6 w-full flex justify-between"
+          style={{ height: "200px" }}
+        >
           <CardBody>
             <Typography variant="h5" className="mb-2 text-[#e71b82]">
               Artist Request__

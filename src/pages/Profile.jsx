@@ -33,6 +33,7 @@ export const Profile = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token")
+    localStorage.removeItem("role")
     window.location.href = "/login" // Assuming your login page is at "/login"
   }
 

@@ -42,19 +42,6 @@ export const ProfileAvatar = () => {
         </Link>
       )}
       {/* Mostra solo l'avatar senza badge se non ci sono notifiche */}
-      {!hasNotification && (
-        <Link to="/profile">
-          <Avatar
-            src={
-              profile?.avatar === null
-                ? "https://docs.material-tailwind.com/img/face-2.jpg"
-                : profile?.avatar
-            }
-            alt="avatar"
-            className="w-8 h-8 md:hidden lg:inline-flex"
-          />
-        </Link>
-      )}
     </div>
   )
 }

@@ -11,10 +11,12 @@ import { useDispatch, useSelector } from "react-redux"
 import { getProfile, postAvatar, putProfile } from "../redux/actions/user"
 import { ProfileInfo } from "../components/ProfileInfo"
 import { CuratorNotify } from "../components/CuratorNotify"
+import { useLocation } from "react-router-dom"
 
 export const Profile = () => {
   const profile = useSelector((state) => state.profile.profile)
   const dispatch = useDispatch()
+  const { pathname } = useLocation()
   const token = localStorage.getItem("token")
   const role = localStorage.getItem("role")
   const notifications = JSON.parse(localStorage.getItem("notify"))
@@ -28,6 +30,11 @@ export const Profile = () => {
   })
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(!open)
+
+  const handleLogout = () => {
+    localStorage.removeItem("token")
+    window.location.href = "/login" // Assuming your login page is at "/login"
+  }
 
   useEffect(() => {
     if (!profile) {
@@ -106,7 +113,17 @@ export const Profile = () => {
           >
             {role}
           </Typography>
-          <div></div>
+          <div>
+            {pathname !== "/login" && (
+              <Button
+                variant="outlined"
+                className="bottone text-[#e71b82] border-[#e71b82] hover:bg-white rounded-full mt-10 ml-5"
+                onClick={handleLogout}
+              >
+                LOG OUT
+              </Button>
+            )}
+          </div>
         </div>
 
         <Card

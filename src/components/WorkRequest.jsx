@@ -8,6 +8,8 @@ import {
   Input,
 } from "@material-tailwind/react"
 import { useState } from "react"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 export const WorkRequest = () => {
   const [isFormVisible, setIsFormVisible] = useState(false)
@@ -46,11 +48,13 @@ export const WorkRequest = () => {
       description: "",
       artistId: "",
     })
+    toast.success("New art work request sent successfully!")
     toggleFormVisibility()
   }
 
   return (
     <div>
+      <ToastContainer />
       <div>
         <Card
           className="mt-6 w-full flex justify-between"

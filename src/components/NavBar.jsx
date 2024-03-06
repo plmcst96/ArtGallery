@@ -13,6 +13,8 @@ import emailjs from "@emailjs/browser"
 import { toast } from "react-toastify"
 import FavouriteIndicatore from "./FavouriteIndicator"
 import { ProfileAvatar } from "./ProfileAvatar"
+import { useDispatch } from "react-redux"
+import { getProfile } from "../redux/actions/user"
 
 const NavBar = () => {
   const [openNav, setOpenNav] = useState(false)
@@ -20,7 +22,13 @@ const NavBar = () => {
   const openDrawer = () => setOpen(true)
   const closeDrawer = () => setOpen(false)
   const role = localStorage.getItem("role")
+  const token = localStorage.getItem("token")
   const { pathname } = useLocation()
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getProfile(token))
+  }, [])
 
   useEffect(() => {
     window.addEventListener(

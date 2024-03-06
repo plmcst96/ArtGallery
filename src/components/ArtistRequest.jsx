@@ -50,7 +50,11 @@ export const ArtistRequest = () => {
       quote: "",
     })
     toast.success("New artist request sent successfully!")
+
     toggleFormVisibility()
+    setTimeout(() => {
+      window.location.reload()
+    }, 3000)
   }
 
   return (

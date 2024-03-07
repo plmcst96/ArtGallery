@@ -38,6 +38,7 @@ const RegisterFormCurator = () => {
       />
       <Input
         label="Email"
+        type="email"
         size="lg"
         className="mb-5 h-0"
         onChange={(e) => {
@@ -49,6 +50,7 @@ const RegisterFormCurator = () => {
       />
       <Input
         label="Password"
+        type="password"
         size="lg"
         onChange={(e) => {
           setRegister({

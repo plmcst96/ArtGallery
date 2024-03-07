@@ -31,6 +31,7 @@ const LoginForm = () => {
     <CardBody className=" flex flex-col gap-4">
       <Input
         label="Email"
+        type="email"
         size="lg"
         onChange={(e) => {
           setLogin({
@@ -42,6 +43,7 @@ const LoginForm = () => {
 
       <Input
         label="Password"
+        type="password"
         size="lg"
         onChange={(e) => {
           setLogin({

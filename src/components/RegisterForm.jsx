@@ -43,6 +43,7 @@ const RegisterForm = () => {
       />
       <Input
         label="Email"
+        type="email"
         size="lg"
         className="mb-5 h-0"
         onChange={(e) => {
@@ -54,6 +55,7 @@ const RegisterForm = () => {
       />
       <Input
         label="Password"
+        type="password"
         size="lg"
         onChange={(e) => {
           setRegister({
